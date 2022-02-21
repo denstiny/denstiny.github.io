@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Denstiny aero Small world</title>
-    <link>http://example.org/post/</link>
+    <link>https://denstiny.github.io/post/</link>
     <description>Recent content in Posts on Denstiny aero Small world</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 21 Feb 2022 23:07:55 +0800</lastBuildDate><atom:link href="http://example.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Feb 2022 23:07:55 +0800</lastBuildDate><atom:link href="https://denstiny.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux自动禁用键盘鼠标</title>
-      <link>http://example.org/post/linux%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E9%94%AE%E7%9B%98%E9%BC%A0%E6%A0%87/</link>
+      <link>https://denstiny.github.io/post/linux%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E9%94%AE%E7%9B%98%E9%BC%A0%E6%A0%87/</link>
       <pubDate>Mon, 21 Feb 2022 23:07:55 +0800</pubDate>
       
-      <guid>http://example.org/post/linux%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E9%94%AE%E7%9B%98%E9%BC%A0%E6%A0%87/</guid>
+      <guid>https://denstiny.github.io/post/linux%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E9%94%AE%E7%9B%98%E9%BC%A0%E6%A0%87/</guid>
       <description>linux自动禁用鼠标键盘 我当前使用的是awesome wm桌面环境，由于桌子比较小，所以外接的键盘是直接放在笔记本上面，另外还接了蓝牙鼠标，为了避免误触需要把默认的键盘鼠标禁用掉，但是每次开机都要自己手动禁用感觉很麻烦想写个脚本
 xinput 命令查看当前笔记本连接的设备 使用方法
 xinput Results:
@@ -21,10 +21,10 @@ xinput Results:
     
     <item>
       <title>Wezterm终端</title>
-      <link>http://example.org/post/wezterm%E7%BB%88%E7%AB%AF/</link>
+      <link>https://denstiny.github.io/post/wezterm%E7%BB%88%E7%AB%AF/</link>
       <pubDate>Mon, 21 Feb 2022 22:57:34 +0800</pubDate>
       
-      <guid>http://example.org/post/wezterm%E7%BB%88%E7%AB%AF/</guid>
+      <guid>https://denstiny.github.io/post/wezterm%E7%BB%88%E7%AB%AF/</guid>
       <description>wezterm  使用gpu加速终端，动态渲染终端内容,使用lua作为配置，具有高度自定义
  
 配置文件 local wezterm = require &amp;#39;wezterm&amp;#39;; -- window resize event config require(&amp;#34;wezterm-resize-config&amp;#34;) -- key require(&amp;#34;key-bind&amp;#34;) -- A helper function for my fallback fonts function font_with_fallback(name, params) local names = {name, &amp;#34;DengXian&amp;#34;,&amp;#34;Noto Color Emoji&amp;#34;, &amp;#34;JetBrains &amp;#34;} return wezterm.font_with_fallback(names, params) end wezterm.on(&amp;#34;window-config-reloaded&amp;#34;, function(window, pane) wezterm.log_info(&amp;#34;the config was reloaded for this window!&amp;#34;); end) return { warn_about_missing_glyphs=false, window_padding = { left = 0, right = 0, top = 0, bottom = 0 }, color_scheme = &amp;#34;Lavandula&amp;#34;, scrollback_lines=99999, harfbuzz_features = {&amp;#34;zero&amp;#34;}, hide_tab_bar_if_only_one_tab = false, enable_tab_bar = false, freetype_load_target = &amp;#34;Light&amp;#34;, font_size = 16.</description>
@@ -32,10 +32,10 @@ xinput Results:
     
     <item>
       <title>My First Post</title>
-      <link>http://example.org/post/my-first-post/</link>
+      <link>https://denstiny.github.io/post/my-first-post/</link>
       <pubDate>Mon, 21 Feb 2022 22:28:48 +0800</pubDate>
       
-      <guid>http://example.org/post/my-first-post/</guid>
+      <guid>https://denstiny.github.io/post/my-first-post/</guid>
       <description>hello world #include &amp;lt;iostream&amp;gt; #include &amp;lt;iterator&amp;gt; #include &amp;lt;string&amp;gt; using namespace std; int main(int argc, char ** argv) { //char str[] = &amp;quot;hello&amp;quot;; //char * s = str; //char ** c = &amp;amp;s; //std::cout &amp;lt;&amp;lt; c &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; *c &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; s &amp;lt;&amp;lt; std::endl; string str = &amp;quot;hello world&amp;quot;; string::iterator it = str.begin(); *it = &#39;G&#39;; std::cout &amp;lt;&amp;lt; str &amp;lt;&amp;lt; std::endl; }  
 Welcome to Leanote! 欢迎来到Leanote!</description>
     </item>

@@ -2,26 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://example.org/</loc>
+    <loc>https://denstiny.github.io/</loc>
     <lastmod>2022-02-21T23:07:55+08:00</lastmod>
   </url><url>
-    <loc>http://example.org/post/linux%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E9%94%AE%E7%9B%98%E9%BC%A0%E6%A0%87/</loc>
+    <loc>https://denstiny.github.io/post/linux%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E9%94%AE%E7%9B%98%E9%BC%A0%E6%A0%87/</loc>
     <lastmod>2022-02-21T23:07:55+08:00</lastmod>
   </url><url>
-    <loc>http://example.org/post/</loc>
+    <loc>https://denstiny.github.io/post/</loc>
     <lastmod>2022-02-21T23:07:55+08:00</lastmod>
   </url><url>
-    <loc>http://example.org/linux%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E9%94%AE%E7%9B%98%E9%BC%A0%E6%A0%87/</loc>
+    <loc>https://denstiny.github.io/linux%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E9%94%AE%E7%9B%98%E9%BC%A0%E6%A0%87/</loc>
     <lastmod>2022-02-21T22:57:57+08:00</lastmod>
   </url><url>
-    <loc>http://example.org/post/wezterm%E7%BB%88%E7%AB%AF/</loc>
+    <loc>https://denstiny.github.io/post/wezterm%E7%BB%88%E7%AB%AF/</loc>
     <lastmod>2022-02-21T22:57:34+08:00</lastmod>
   </url><url>
-    <loc>http://example.org/post/my-first-post/</loc>
+    <loc>https://denstiny.github.io/post/my-first-post/</loc>
     <lastmod>2022-02-21T22:28:48+08:00</lastmod>
   </url><url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://denstiny.github.io/categories/</loc>
   </url><url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://denstiny.github.io/tags/</loc>
   </url>
 </urlset>
