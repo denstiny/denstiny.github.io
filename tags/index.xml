@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Denstiny aero Small world</title>
+    <title>Tags on Sooner or later, personal blog</title>
     <link>https://denstiny.github.io/tags/</link>
-    <description>Recent content in Tags on Denstiny aero Small world</description>
+    <description>Recent content in Tags on Sooner or later, personal blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="https://denstiny.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 21 Feb 2022 23:07:55 +0800</lastBuildDate><atom:link href="https://denstiny.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>linux</title>
+      <link>https://denstiny.github.io/tags/linux/</link>
+      <pubDate>Mon, 21 Feb 2022 23:07:55 +0800</pubDate>
+      
+      <guid>https://denstiny.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>terminal</title>
+      <link>https://denstiny.github.io/tags/terminal/</link>
+      <pubDate>Mon, 21 Feb 2022 22:57:34 +0800</pubDate>
+      
+      <guid>https://denstiny.github.io/tags/terminal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>test</title>
+      <link>https://denstiny.github.io/tags/test/</link>
+      <pubDate>Mon, 21 Feb 2022 22:28:48 +0800</pubDate>
+      
+      <guid>https://denstiny.github.io/tags/test/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
