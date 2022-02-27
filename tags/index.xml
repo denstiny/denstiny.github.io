@@ -6,7 +6,43 @@
     <description>Recent content in Tags on Sooner or later, personal blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 21 Feb 2022 23:07:55 +0800</lastBuildDate><atom:link href="https://denstiny.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Feb 2022 14:12:21 +0800</lastBuildDate><atom:link href="https://denstiny.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>python</title>
+      <link>https://denstiny.github.io/tags/python/</link>
+      <pubDate>Sun, 27 Feb 2022 14:12:21 +0800</pubDate>
+      
+      <guid>https://denstiny.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vim</title>
+      <link>https://denstiny.github.io/tags/vim/</link>
+      <pubDate>Sun, 27 Feb 2022 14:12:21 +0800</pubDate>
+      
+      <guid>https://denstiny.github.io/tags/vim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>图床</title>
+      <link>https://denstiny.github.io/tags/%E5%9B%BE%E5%BA%8A/</link>
+      <pubDate>Sun, 27 Feb 2022 14:12:21 +0800</pubDate>
+      
+      <guid>https://denstiny.github.io/tags/%E5%9B%BE%E5%BA%8A/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>日常</title>
+      <link>https://denstiny.github.io/tags/%E6%97%A5%E5%B8%B8/</link>
+      <pubDate>Wed, 23 Feb 2022 08:47:19 +0800</pubDate>
+      
+      <guid>https://denstiny.github.io/tags/%E6%97%A5%E5%B8%B8/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>linux</title>
       <link>https://denstiny.github.io/tags/linux/</link>
@@ -22,15 +58,6 @@
       <pubDate>Mon, 21 Feb 2022 22:57:34 +0800</pubDate>
       
       <guid>https://denstiny.github.io/tags/terminal/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>test</title>
-      <link>https://denstiny.github.io/tags/test/</link>
-      <pubDate>Mon, 21 Feb 2022 22:28:48 +0800</pubDate>
-      
-      <guid>https://denstiny.github.io/tags/test/</guid>
       <description></description>
     </item>
     

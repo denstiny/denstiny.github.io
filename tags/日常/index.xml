@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>日常 on Sooner or later, personal blog</title>
+    <link>https://denstiny.github.io/tags/%E6%97%A5%E5%B8%B8/</link>
+    <description>Recent content in 日常 on Sooner or later, personal blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 23 Feb 2022 08:47:19 +0800</lastBuildDate><atom:link href="https://denstiny.github.io/tags/%E6%97%A5%E5%B8%B8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>无聊的一天</title>
+      <link>https://denstiny.github.io/%E6%97%A0%E8%81%8A%E7%9A%84%E4%B8%80%E5%A4%A9/</link>
+      <pubDate>Wed, 23 Feb 2022 08:47:19 +0800</pubDate>
+      
+      <guid>https://denstiny.github.io/%E6%97%A0%E8%81%8A%E7%9A%84%E4%B8%80%E5%A4%A9/</guid>
+      <description> 老师又在讲这些本来一条命令就能安装的东西,非要下载然后解压缩，构建，复制 
+  昨天还下雪了了，今天地上全是水，真的是 哎呀这可能是南昌今天最后一场雪了 
+ </description>
+    </item>
+    
+  </channel>
+</rss>

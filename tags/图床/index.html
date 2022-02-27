@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <meta name="generator" content="Hugo 0.92.2" />
-  <link rel="canonical" href="https://denstiny.github.io/tags/">
+  <link rel="canonical" href="https://denstiny.github.io/tags/%E5%9B%BE%E5%BA%8A/">
 
   
     
-    <meta name="description" content="Tags">
+    <meta name="description" content="图床">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -45,7 +45,7 @@ if (!doNotTrack) {
 
   
   
-  <title>Tags | Sooner or later, personal blog</title>
+  <title>图床 | Sooner or later, personal blog</title>
 </head>
 
   <body>
@@ -81,38 +81,21 @@ if (!doNotTrack) {
       <main>
         
 
-<h1>Tags</h1>
+<h1>图床</h1>
 
-  <h2 class="post-list">
-    <span class="badge">2</span> 
-    <a href="/tags/linux/">linux</a>
+
+
+  <h2 class="post-list summary">
+    <a href="/python%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0%E5%9B%BE%E5%BA%8A/">
+      Python上传图片到图床
+    </a>
   </h2>
-
-  <h2 class="post-list">
-    <span class="badge">1</span> 
-    <a href="/tags/python/">python</a>
-  </h2>
-
-  <h2 class="post-list">
-    <span class="badge">1</span> 
-    <a href="/tags/terminal/">terminal</a>
-  </h2>
-
-  <h2 class="post-list">
-    <span class="badge">1</span> 
-    <a href="/tags/vim/">vim</a>
-  </h2>
-
-  <h2 class="post-list">
-    <span class="badge">1</span> 
-    <a href="/tags/%E5%9B%BE%E5%BA%8A/">图床</a>
-  </h2>
-
-  <h2 class="post-list">
-    <span class="badge">1</span> 
-    <a href="/tags/%E6%97%A5%E5%B8%B8/">日常</a>
-  </h2>
-
+  
+    代码讲解就不说了，注释应该很详细了,说下为什么写下这个脚本吧
+作为一个vim 死忠粉，在使用vim 写makrdown文档的时候，总是为上传图片而犯难，总是要切换到浏览器捣鼓一阵子，比较影响写作体验，所以写下这个脚本
+   postImage.py
+ &#34;&#34;&#34; @author : aero (2254228017@qq.com) @file : imagePost @created : 星期六 2月 26, 2022 20:08:57 CST @github : https://github.com/denstiny @blog : https://denstiny.github.io &#34;&#34;&#34; import os import json import sys import requests import subprocess import datetime root = {&#39;遇见图床&#39;: {&#39;url&#39;:&#39;https://www.hualigs.cn/api/upload&#39;, &#39;token&#39;:&#39;eaa4eb11884f7a60e03f5c2eab3161c8&#39;}, &#39;牛图网&#39;: {&#39;url&#39;:&#39;https://www.niupic.com/api/upload&#39;, &#39;token&#39;:&#39;xxx&#39;}} class PostImage: def __init__(self): pass def currentTime(self,filetype): &#34;&#34;&#34; Args: filetype (): 文件后缀 Returns: 返回当前时间的文件名称 &#34;&#34;&#34; time = datetime.
+  
 
 
       </main>
