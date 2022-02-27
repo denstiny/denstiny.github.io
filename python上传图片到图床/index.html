@@ -10,10 +10,10 @@
 
   
     
-    <meta name="description" content="代码讲解就不说了，注释应该很详细了,说下为什么写下这个脚本吧
+    <meta name="description" content="python上传图片到图床  python代码  效果   github链接    python上传图片到图床  代码讲解就不说了，注释应该很详细了,说下为什么写下这个脚本吧
 作为一个vim 死忠粉，在使用vim 写makrdown文档的时候，总是为上传图片而犯难，总是要切换到浏览器捣鼓一阵子，比较影响写作体验，所以写下这个脚本
-   postImage.py
- &#34;&#34;&#34; @author : aero (2254228017@qq.com) @file : imagePost @created : 星期六 2月 26, 2022 20:08:57 CST @github : https://github.com/denstiny @blog : https://denstiny.github.io &#34;&#34;&#34; import os import json import sys import requests import subprocess import datetime root = {&#39;遇见图床&#39;: {&#39;url&#39;:&#39;https://www.hualigs.cn/api/upload&#39;, &#39;token&#39;:&#39;eaa4eb11884f7a60e03f5c2eab3161c8&#39;}, &#39;牛图网&#39;: {&#39;url&#39;:&#39;https://www.niupic.com/api/upload&#39;, &#39;token&#39;:&#39;xxx&#39;}} class PostImage: def __init__(self): pass def currentTime(self,filetype): &#34;&#34;&#34; Args: filetype (): 文件后缀 Returns: 返回当前时间的文件名称 &#34;&#34;&#34; time = datetime.">
+  python代码  postImage.py
+ &#34;&#34;&#34; @author : aero (2254228017@qq.com) @file : imagePost @created : 星期六 2月 26, 2022 20:08:57 CST @github : https://github.com/denstiny @blog : https://denstiny.github.io &#34;&#34;&#34; import os import json import sys import requests import subprocess import datetime root = {&#39;遇见图床&#39;: {&#39;url&#39;:&#39;https://www.hualigs.cn/api/upload&#39;, &#39;token&#39;:&#39;xxx&#39;}, &#39;牛图网&#39;: {&#39;url&#39;:&#39;https://www.niupic.com/api/upload&#39;, &#39;token&#39;:&#39;xxx&#39;}} class PostImage: def __init__(self): pass def currentTime(self,filetype): &#34;&#34;&#34; Args: filetype (): 文件后缀 Returns: 返回当前时间的文件名称 &#34;&#34;&#34; time = datetime.">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -103,13 +103,58 @@ if (!doNotTrack) {
 
   
 
+<div class="child-borders">
+  <div class="toc border" aria-labelledby="toc-heading">
+    <h2 id="toc-heading">Table of contents</h2>
+    <ol>
+      
+        <li>
+          
+          
+          
+          
+          <a href="#python%e4%bb%a3%e7%a0%81">
+            python代码
+          </a>
+        </li>
+      
+        <li>
+          
+          
+          
+          
+          <a href="#github%e9%93%be%e6%8e%a5">
+            github链接
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</div>
 
 
+
+<!-- vim-markdown-toc GFM -->
+<ul>
+<li><a href="#python%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0%E5%9B%BE%E5%BA%8A">python上传图片到图床</a>
+<ul>
+<li><a href="#python%E4%BB%A3%E7%A0%81">python代码</a>
+<ul>
+<li><a href="#%E6%95%88%E6%9E%9C">效果</a></li>
+</ul>
+</li>
+<li><a href="#github%E9%93%BE%E6%8E%A5">github链接</a></li>
+</ul>
+</li>
+</ul>
+<!-- vim-markdown-toc -->
+<h1 id="python上传图片到图床">python上传图片到图床</h1>
 <blockquote>
 <p>代码讲解就不说了，注释应该很详细了,说下为什么写下这个脚本吧<br>
 作为一个<code>vim</code> 死忠粉，在使用<code>vim</code> 写<code>makrdown</code>文档的时候，总是为上传图片而犯难，总是要切换到浏览器捣鼓一阵子，比较影响写作体验，所以写下这个脚本</p>
 </blockquote>
 <hr>
+<h2 id="python代码">python代码</h2>
 <blockquote>
 <p>postImage.py</p>
 </blockquote>
@@ -133,7 +178,7 @@ if (!doNotTrack) {
 
 
 root <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;遇见图床&#39;</span>: {<span style="color:#e6db74">&#39;url&#39;</span>:<span style="color:#e6db74">&#39;https://www.hualigs.cn/api/upload&#39;</span>,
-    <span style="color:#e6db74">&#39;token&#39;</span>:<span style="color:#e6db74">&#39;eaa4eb11884f7a60e03f5c2eab3161c8&#39;</span>},
+    <span style="color:#e6db74">&#39;token&#39;</span>:<span style="color:#e6db74">&#39;xxx&#39;</span>},
         <span style="color:#e6db74">&#39;牛图网&#39;</span>:
     {<span style="color:#e6db74">&#39;url&#39;</span>:<span style="color:#e6db74">&#39;https://www.niupic.com/api/upload&#39;</span>,
     <span style="color:#e6db74">&#39;token&#39;</span>:<span style="color:#e6db74">&#39;xxx&#39;</span>}}
@@ -244,8 +289,11 @@ root <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;遇�
 </code></pre></div><p><em>Results:</em></p>
 <pre tabindex="0"><code>https://www.hualigs.cn/image/621a59402726f.jpg
 https://www.hualigs.cn/image/621b177c820b9.jpg
-</code></pre><p><img src="https://www.hualigs.cn/image/621a59402726f.jpg" alt="">
+</code></pre><h3 id="效果">效果</h3>
+<p><img src="https://www.hualigs.cn/image/621a59402726f.jpg" alt="">
 <img src="https://www.hualigs.cn/image/621b177c820b9.jpg" alt=""></p>
+<h2 id="github链接">github链接</h2>
+<p><a href="https://github.com/denstiny/picgo-nvim.git">denstiny/picgo-nvim</a></p>
 
 
 

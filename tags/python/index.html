@@ -91,10 +91,10 @@ if (!doNotTrack) {
     </a>
   </h2>
   
-    代码讲解就不说了，注释应该很详细了,说下为什么写下这个脚本吧
+    python上传图片到图床  python代码  效果   github链接    python上传图片到图床  代码讲解就不说了，注释应该很详细了,说下为什么写下这个脚本吧
 作为一个vim 死忠粉，在使用vim 写makrdown文档的时候，总是为上传图片而犯难，总是要切换到浏览器捣鼓一阵子，比较影响写作体验，所以写下这个脚本
-   postImage.py
- &#34;&#34;&#34; @author : aero (2254228017@qq.com) @file : imagePost @created : 星期六 2月 26, 2022 20:08:57 CST @github : https://github.com/denstiny @blog : https://denstiny.github.io &#34;&#34;&#34; import os import json import sys import requests import subprocess import datetime root = {&#39;遇见图床&#39;: {&#39;url&#39;:&#39;https://www.hualigs.cn/api/upload&#39;, &#39;token&#39;:&#39;eaa4eb11884f7a60e03f5c2eab3161c8&#39;}, &#39;牛图网&#39;: {&#39;url&#39;:&#39;https://www.niupic.com/api/upload&#39;, &#39;token&#39;:&#39;xxx&#39;}} class PostImage: def __init__(self): pass def currentTime(self,filetype): &#34;&#34;&#34; Args: filetype (): 文件后缀 Returns: 返回当前时间的文件名称 &#34;&#34;&#34; time = datetime.
+  python代码  postImage.py
+ &#34;&#34;&#34; @author : aero (2254228017@qq.com) @file : imagePost @created : 星期六 2月 26, 2022 20:08:57 CST @github : https://github.com/denstiny @blog : https://denstiny.github.io &#34;&#34;&#34; import os import json import sys import requests import subprocess import datetime root = {&#39;遇见图床&#39;: {&#39;url&#39;:&#39;https://www.hualigs.cn/api/upload&#39;, &#39;token&#39;:&#39;xxx&#39;}, &#39;牛图网&#39;: {&#39;url&#39;:&#39;https://www.niupic.com/api/upload&#39;, &#39;token&#39;:&#39;xxx&#39;}} class PostImage: def __init__(self): pass def currentTime(self,filetype): &#34;&#34;&#34; Args: filetype (): 文件后缀 Returns: 返回当前时间的文件名称 &#34;&#34;&#34; time = datetime.
   
 
 
