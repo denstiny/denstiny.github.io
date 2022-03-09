@@ -13,7 +13,17 @@
       <pubDate>Tue, 08 Mar 2022 15:40:12 +0800</pubDate>
       
       <guid>https://denstiny.github.io/%E6%88%92%E7%83%9F%E7%AC%AC%E4%B8%80%E5%A4%A9/</guid>
-      <description>在昨天，我和一个以前的同学在一开打游戏，突然听到他说，我们的高中同学，因为抽烟得了肺癌了，我当时挺震惊的，因为他和我是同一时间开始抽烟的， 现在他躺进去了，自己是不是也快了，我觉得是时候该戒烟了。</description>
+      <description>在昨天，我和一个以前的同学在一开打游戏，突然听到他说，我们的高中同学，因为抽烟得了肺癌了，我当时挺震惊的，因为他和我是同一时间开始抽烟的 现在他躺进去了，一下子危机感就上来了，戒烟戒烟!!!!</description>
+    </item>
+    
+    <item>
+      <title>戒烟第二天</title>
+      <link>https://denstiny.github.io/%E6%88%92%E7%83%9F%E7%AC%AC%E4%BA%8C%E5%A4%A9/</link>
+      <pubDate>Tue, 08 Mar 2022 12:58:12 +0800</pubDate>
+      
+      <guid>https://denstiny.github.io/%E6%88%92%E7%83%9F%E7%AC%AC%E4%BA%8C%E5%A4%A9/</guid>
+      <description>今天是戒烟的第二天,现在是断烟的第27个小时，
+我现在的感觉是每个呼吸都在告诉我，你该点一根了</description>
     </item>
     
     <item>
@@ -22,7 +32,11 @@
       <pubDate>Wed, 02 Mar 2022 15:04:50 +0800</pubDate>
       
       <guid>https://denstiny.github.io/neovim%E7%A9%BA%E8%A1%8C%E4%B8%8D%E6%98%BE%E7%A4%BA%E5%9B%9E%E8%BD%A6%E7%AC%A6%E5%8F%B7/</guid>
-      <description></description>
+      <description>neovim/vim 空行不显示特殊符号  正常情况 解决办法  效果      neovim/vim 空行不显示特殊符号  一般我们会使用 set list 来显示特殊符号
+ 正常情况 set listchars=eol:$,tab:&amp;gt;-,trail:~,extends:&amp;gt;,precedes:&amp;lt;set list但是这样就会有个问题，在一些空行仍然会显示隐藏符号 解决办法  为了解决这个问题，我决定使用vim的虚拟文本进行显示这些字符
+ 基本使用
+  nvim_buf_set_virtual_text(0,1000,line,chunk,{})&amp;#34; buffer,id,行号,虚拟文本,属性&amp;#34; chunk = [[g:VirreturnText,&amp;#39;Activitycharacter&amp;#39;],]&amp;#34; g:VirreturnText = &amp;#39;↵&amp;#39;  完整代码
+  highlight default Activitycharacter guifg=#4D557B guibg=#292e42highlight default Activitycharacter_v guifg=#4D557B guibg=bghighlight default Inactivecharacters guifg=#343A55 guibg=bgfunction MygetLine(_line) let s:string = split(getline(a:_line)) if len(s:string) &amp;gt; 0 return 1 endif return 0endfunctionlet g:VirreturnText=&amp;#39;↵&amp;#39;let g:VirReturnTextFunStart = v:truelet g:VirReturnTextFunList = [&amp;#39;startify&amp;#39;,&amp;#39;NvimTree&amp;#39;,&amp;#39;Trouble&amp;#39;,&amp;#39;Outline&amp;#39;,&amp;#39;norg&amp;#39;,&amp;#39;packer&amp;#39;,&amp;#39;lsp-installer&amp;#39;,&amp;#39;toggleterm&amp;#39;,&amp;#39;packer&amp;#39;,&amp;#39;TelescopePrompt&amp;#39;,&amp;#39;CompetiTest&amp;#39;,&amp;#39;help&amp;#39;,&amp;#39;startuptime&amp;#39;]let g:cureLine_ = line(&amp;#39;.</description>
     </item>
     
     <item>
@@ -78,15 +92,6 @@ xinput Results:
       <description>wezterm  使用gpu加速终端，动态渲染终端内容,使用lua作为配置，具有高度自定义
  
 配置文件  local wezterm = require &amp;#39;wezterm&amp;#39;;  -- window resize event config require(&amp;#34;wezterm-resize-config&amp;#34;)  -- key require(&amp;#34;key-bind&amp;#34;)  -- A helper function for my fallback fonts  function font_with_fallback(name, params)  local names = {name, &amp;#34;DengXian&amp;#34;,&amp;#34;Noto Color Emoji&amp;#34;, &amp;#34;JetBrains &amp;#34;}  return wezterm.font_with_fallback(names, params) end   wezterm.on(&amp;#34;window-config-reloaded&amp;#34;, function(window, pane)  wezterm.log_info(&amp;#34;the config was reloaded for this window!&amp;#34;); end)   return {  warn_about_missing_glyphs=false,  window_padding = {  left = 0,  right = 0,  top = 0,  bottom = 0  },  color_scheme = &amp;#34;Lavandula&amp;#34;,  scrollback_lines=99999,  harfbuzz_features = {&amp;#34;zero&amp;#34;},  hide_tab_bar_if_only_one_tab = false,  enable_tab_bar = false,  freetype_load_target = &amp;#34;Light&amp;#34;,  font_size = 16.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://denstiny.github.io/%E6%88%92%E7%83%9F%E7%AC%AC%E4%BA%8C%E5%A4%A9/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://denstiny.github.io/%E6%88%92%E7%83%9F%E7%AC%AC%E4%BA%8C%E5%A4%A9/</guid>
-      <description></description>
     </item>
     
   </channel>

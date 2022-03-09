@@ -91,7 +91,11 @@ if (!doNotTrack) {
     </a>
   </h2>
   
-    
+    neovim/vim 空行不显示特殊符号  正常情况 解决办法  效果      neovim/vim 空行不显示特殊符号  一般我们会使用 set list 来显示特殊符号
+ 正常情况 set listchars=eol:$,tab:&gt;-,trail:~,extends:&gt;,precedes:&lt;set list但是这样就会有个问题，在一些空行仍然会显示隐藏符号 解决办法  为了解决这个问题，我决定使用vim的虚拟文本进行显示这些字符
+ 基本使用
+  nvim_buf_set_virtual_text(0,1000,line,chunk,{})&#34; buffer,id,行号,虚拟文本,属性&#34; chunk = [[g:VirreturnText,&#39;Activitycharacter&#39;],]&#34; g:VirreturnText = &#39;↵&#39;  完整代码
+  highlight default Activitycharacter guifg=#4D557B guibg=#292e42highlight default Activitycharacter_v guifg=#4D557B guibg=bghighlight default Inactivecharacters guifg=#343A55 guibg=bgfunction MygetLine(_line) let s:string = split(getline(a:_line)) if len(s:string) &gt; 0 return 1 endif return 0endfunctionlet g:VirreturnText=&#39;↵&#39;let g:VirReturnTextFunStart = v:truelet g:VirReturnTextFunList = [&#39;startify&#39;,&#39;NvimTree&#39;,&#39;Trouble&#39;,&#39;Outline&#39;,&#39;norg&#39;,&#39;packer&#39;,&#39;lsp-installer&#39;,&#39;toggleterm&#39;,&#39;packer&#39;,&#39;TelescopePrompt&#39;,&#39;CompetiTest&#39;,&#39;help&#39;,&#39;startuptime&#39;]let g:cureLine_ = line(&#39;.
   
 
   <h2 class="post-list summary">

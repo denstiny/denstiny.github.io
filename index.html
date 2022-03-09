@@ -95,7 +95,17 @@ if (!doNotTrack) {
     </a>
   </h2>
   
-    在昨天，我和一个以前的同学在一开打游戏，突然听到他说，我们的高中同学，因为抽烟得了肺癌了，我当时挺震惊的，因为他和我是同一时间开始抽烟的， 现在他躺进去了，自己是不是也快了，我觉得是时候该戒烟了。
+    在昨天，我和一个以前的同学在一开打游戏，突然听到他说，我们的高中同学，因为抽烟得了肺癌了，我当时挺震惊的，因为他和我是同一时间开始抽烟的 现在他躺进去了，一下子危机感就上来了，戒烟戒烟!!!!
+  
+
+  <h2 class="post-list summary">
+    <a href="/%E6%88%92%E7%83%9F%E7%AC%AC%E4%BA%8C%E5%A4%A9/">
+      戒烟第二天
+    </a>
+  </h2>
+  
+    今天是戒烟的第二天,现在是断烟的第27个小时，
+我现在的感觉是每个呼吸都在告诉我，你该点一根了
   
 
   <h2 class="post-list summary">
@@ -104,7 +114,11 @@ if (!doNotTrack) {
     </a>
   </h2>
   
-    
+    neovim/vim 空行不显示特殊符号  正常情况 解决办法  效果      neovim/vim 空行不显示特殊符号  一般我们会使用 set list 来显示特殊符号
+ 正常情况 set listchars=eol:$,tab:&gt;-,trail:~,extends:&gt;,precedes:&lt;set list但是这样就会有个问题，在一些空行仍然会显示隐藏符号 解决办法  为了解决这个问题，我决定使用vim的虚拟文本进行显示这些字符
+ 基本使用
+  nvim_buf_set_virtual_text(0,1000,line,chunk,{})&#34; buffer,id,行号,虚拟文本,属性&#34; chunk = [[g:VirreturnText,&#39;Activitycharacter&#39;],]&#34; g:VirreturnText = &#39;↵&#39;  完整代码
+  highlight default Activitycharacter guifg=#4D557B guibg=#292e42highlight default Activitycharacter_v guifg=#4D557B guibg=bghighlight default Inactivecharacters guifg=#343A55 guibg=bgfunction MygetLine(_line) let s:string = split(getline(a:_line)) if len(s:string) &gt; 0 return 1 endif return 0endfunctionlet g:VirreturnText=&#39;↵&#39;let g:VirReturnTextFunStart = v:truelet g:VirReturnTextFunList = [&#39;startify&#39;,&#39;NvimTree&#39;,&#39;Trouble&#39;,&#39;Outline&#39;,&#39;norg&#39;,&#39;packer&#39;,&#39;lsp-installer&#39;,&#39;toggleterm&#39;,&#39;packer&#39;,&#39;TelescopePrompt&#39;,&#39;CompetiTest&#39;,&#39;help&#39;,&#39;startuptime&#39;]let g:cureLine_ = line(&#39;.
   
 
   <h2 class="post-list summary">
@@ -126,17 +140,6 @@ if (!doNotTrack) {
 作为一个vim 死忠粉，在使用vim 写makrdown文档的时候，总是为上传图片而犯难，总是要切换到浏览器捣鼓一阵子，比较影响写作体验，所以写下这个脚本
   python代码  postImage.py
   &#34;&#34;&#34; @author : aero (2254228017@qq.com) @file : imagePost @created : 星期六 2月 26, 2022 20:08:57 CST @github : https://github.com/denstiny @blog : https://denstiny.github.io &#34;&#34;&#34;  import os import json import sys import requests import subprocess import datetime   root = {&#39;遇见图床&#39;: {&#39;url&#39;:&#39;https://www.hualigs.cn/api/upload&#39;,  &#39;token&#39;:&#39;xxx&#39;},  &#39;牛图网&#39;:  {&#39;url&#39;:&#39;https://www.
-  
-
-  <h2 class="post-list summary">
-    <a href="/%E6%97%A0%E8%81%8A%E7%9A%84%E4%B8%80%E5%A4%A9/">
-      无聊的一天
-    </a>
-  </h2>
-  
-     老师又在讲这些本来一条命令就能安装的东西,非要下载然后解压缩，构建，复制 
-  昨天还下雪了了，今天地上全是水，真的是 哎呀这可能是南昌今年最后一场雪了 
- 
   
 
 
