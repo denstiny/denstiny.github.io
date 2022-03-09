@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.93.1" />
   <link rel="canonical" href="https://denstiny.github.io/python%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0%E5%9B%BE%E5%BA%8A/">
 
   
@@ -13,7 +13,7 @@
     <meta name="description" content="python上传图片到图床  python代码  效果   github链接    python上传图片到图床  代码讲解就不说了，注释应该很详细了,说下为什么写下这个脚本吧
 作为一个vim 死忠粉，在使用vim 写makrdown文档的时候，总是为上传图片而犯难，总是要切换到浏览器捣鼓一阵子，比较影响写作体验，所以写下这个脚本
   python代码  postImage.py
- &#34;&#34;&#34; @author : aero (2254228017@qq.com) @file : imagePost @created : 星期六 2月 26, 2022 20:08:57 CST @github : https://github.com/denstiny @blog : https://denstiny.github.io &#34;&#34;&#34; import os import json import sys import requests import subprocess import datetime root = {&#39;遇见图床&#39;: {&#39;url&#39;:&#39;https://www.hualigs.cn/api/upload&#39;, &#39;token&#39;:&#39;xxx&#39;}, &#39;牛图网&#39;: {&#39;url&#39;:&#39;https://www.niupic.com/api/upload&#39;, &#39;token&#39;:&#39;xxx&#39;}} class PostImage: def __init__(self): pass def currentTime(self,filetype): &#34;&#34;&#34; Args: filetype (): 文件后缀 Returns: 返回当前时间的文件名称 &#34;&#34;&#34; time = datetime.">
+  &#34;&#34;&#34; @author : aero (2254228017@qq.com) @file : imagePost @created : 星期六 2月 26, 2022 20:08:57 CST @github : https://github.com/denstiny @blog : https://denstiny.github.io &#34;&#34;&#34;  import os import json import sys import requests import subprocess import datetime   root = {&#39;遇见图床&#39;: {&#39;url&#39;:&#39;https://www.hualigs.cn/api/upload&#39;,  &#39;token&#39;:&#39;xxx&#39;},  &#39;牛图网&#39;:  {&#39;url&#39;:&#39;https://www.">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -158,135 +158,134 @@ if (!doNotTrack) {
 <blockquote>
 <p>postImage.py</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
-<span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"> @author      : aero (2254228017@qq.com)
-</span><span style="color:#e6db74"> @file        : imagePost
-</span><span style="color:#e6db74"> @created     : 星期六 2月 26, 2022 20:08:57 CST
-</span><span style="color:#e6db74"> @github      : https://github.com/denstiny
-</span><span style="color:#e6db74"> @blog        : https://denstiny.github.io
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-
-<span style="color:#f92672">import</span> os
-<span style="color:#f92672">import</span> json
-<span style="color:#f92672">import</span> sys
-<span style="color:#f92672">import</span> requests
-<span style="color:#f92672">import</span> subprocess
-<span style="color:#f92672">import</span> datetime
-
-
-root <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;遇见图床&#39;</span>: {<span style="color:#e6db74">&#39;url&#39;</span>:<span style="color:#e6db74">&#39;https://www.hualigs.cn/api/upload&#39;</span>,
-    <span style="color:#e6db74">&#39;token&#39;</span>:<span style="color:#e6db74">&#39;xxx&#39;</span>},
-        <span style="color:#e6db74">&#39;牛图网&#39;</span>:
-    {<span style="color:#e6db74">&#39;url&#39;</span>:<span style="color:#e6db74">&#39;https://www.niupic.com/api/upload&#39;</span>,
-    <span style="color:#e6db74">&#39;token&#39;</span>:<span style="color:#e6db74">&#39;xxx&#39;</span>}}
-
-
-
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PostImage</span>:
-    <span style="color:#66d9ef">def</span> __init__(self):
-        <span style="color:#66d9ef">pass</span>
-
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">currentTime</span>(self,filetype):
-        <span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">        Args:
-</span><span style="color:#e6db74">            filetype (): 文件后缀
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">        Returns: 返回当前时间的文件名称
-</span><span style="color:#e6db74">            
-</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
-        time <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-%H-%M-%S&#34;</span>)
-        <span style="color:#66d9ef">return</span> time<span style="color:#f92672">+</span>filetype
-
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">PostImage</span>(self, head,files):
-        <span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">        上传图片到图床
-</span><span style="color:#e6db74">        Args:
-</span><span style="color:#e6db74">            head (): 请求头字典
-</span><span style="color:#e6db74">            files (): 文件包装数组
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">        Returns:
-</span><span style="color:#e6db74">            返回图片链接,否则返回False
-</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
-        data <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#34;apiType&#34;</span>:<span style="color:#e6db74">&#39;majorhua&#39;</span>, <span style="color:#e6db74">&#34;token&#34;</span>:head[<span style="color:#e6db74">&#39;token&#39;</span>] }
-        res <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(url<span style="color:#f92672">=</span> head[<span style="color:#e6db74">&#39;url&#39;</span>],data<span style="color:#f92672">=</span>data,files<span style="color:#f92672">=</span>files)
-        self<span style="color:#f92672">.</span>image<span style="color:#f92672">.</span>close()
-        jsonString <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span>content<span style="color:#f92672">.</span>decode()
-        userData <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(jsonString)
-        <span style="color:#66d9ef">if</span> userData[<span style="color:#e6db74">&#39;code&#39;</span>] <span style="color:#f92672">!=</span> <span style="color:#ae81ff">200</span> <span style="color:#f92672">and</span> userData[<span style="color:#e6db74">&#39;msg&#39;</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;success&#39;</span>:
-            print(<span style="color:#e6db74">&#34;error:Upload failed&#34;</span>,file<span style="color:#f92672">=</span>sys<span style="color:#f92672">.</span>stderr)
-            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
-        <span style="color:#66d9ef">return</span> userData[<span style="color:#e6db74">&#39;data&#39;</span>][<span style="color:#e6db74">&#39;url&#39;</span>][<span style="color:#e6db74">&#39;distribute&#39;</span>]
-
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">FileOpen</span>(self,filePath):
-        <span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">        Args:
-</span><span style="color:#e6db74">            filePath (): 文件路径
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">        Returns:
-</span><span style="color:#e6db74">            返回包装好的文件数组
-</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
-        self<span style="color:#f92672">.</span>image <span style="color:#f92672">=</span> open(filePath,<span style="color:#e6db74">&#39;rb&#39;</span>)
-        imageName <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>basename(filePath)
-        files <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;image&#34;</span>:(imageName,self<span style="color:#f92672">.</span>image,<span style="color:#e6db74">&#39;image/jpeg&#39;</span>)}
-        <span style="color:#66d9ef">return</span> files
-
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_xclip</span>(self,cmd):
-        <span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">        执行查找和保存图片的命令，并返回状态
-</span><span style="color:#e6db74">        Args:
-</span><span style="color:#e6db74">            cmd (): 执行的shell命令
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">        Returns:
-</span><span style="color:#e6db74">            成功 返回True 失败 返回False
-</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
-
-        sub <span style="color:#f92672">=</span> subprocess<span style="color:#f92672">.</span>run(cmd,shell<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,stdout<span style="color:#f92672">=</span>subprocess<span style="color:#f92672">.</span>PIPE)
-        <span style="color:#66d9ef">return</span> sub<span style="color:#f92672">.</span>returncode
-
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getClipFileImage</span>(self):
-        <span style="color:#e6db74">&#34;&#34;&#34; 获取剪切板图片 &#34;&#34;&#34;</span>
-        has_png <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xclip -selection clipboard -t TARGETS -o | grep image/png&#34;</span>
-        has_jpg <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xclip -selection clipboard -t TARGETS -o | grep image/jpg&#34;</span>
-        save_png <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xclip -selection clipboard -t image/png -o &gt; &#34;</span>
-        save_jpg <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xclip -selection clipboard -t image/jpg -o &gt; &#34;</span>
-        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>get_xclip(has_png) <span style="color:#f92672">==</span>  <span style="color:#ae81ff">0</span>:
-            file_path <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>currentTime(<span style="color:#e6db74">&#39;.png&#39;</span>)
-            self<span style="color:#f92672">.</span>get_xclip(save_png <span style="color:#f92672">+</span> file_path)
-            image_url <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>PostImage(root[<span style="color:#e6db74">&#39;遇见图床&#39;</span>],self<span style="color:#f92672">.</span>FileOpen(file_path))
-            <span style="color:#66d9ef">if</span> image_url <span style="color:#f92672">!=</span> <span style="color:#66d9ef">False</span>:
-                os<span style="color:#f92672">.</span>remove(file_path)
-                <span style="color:#66d9ef">return</span> image_url
-
-        <span style="color:#66d9ef">elif</span> self<span style="color:#f92672">.</span>get_xclip(has_jpg) <span style="color:#f92672">==</span>  <span style="color:#ae81ff">0</span>:
-            file_path <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>currentTime(<span style="color:#e6db74">&#39;.jpg&#39;</span>)
-            self<span style="color:#f92672">.</span>get_xclip(save_jpg <span style="color:#f92672">+</span> file_path)
-            image_url <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>PostImage(root[<span style="color:#e6db74">&#39;遇见图床&#39;</span>],self<span style="color:#f92672">.</span>FileOpen(file_path))
-            <span style="color:#66d9ef">if</span> image_url <span style="color:#f92672">!=</span> <span style="color:#66d9ef">False</span>:
-                os<span style="color:#f92672">.</span>remove(file_path)
-                <span style="color:#66d9ef">return</span> image_url
-
-        <span style="color:#66d9ef">else</span>:
-            print(<span style="color:#e6db74">&#34;error:no find xclip image&#34;</span>,file<span style="color:#f92672">=</span>sys<span style="color:#f92672">.</span>stderr)
-            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
-
-
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
-    tool <span style="color:#f92672">=</span> PostImage()
-    <span style="color:#75715e"># 上传指定地址图片</span>
-    imageUrl <span style="color:#f92672">=</span> tool<span style="color:#f92672">.</span>PostImage(root[<span style="color:#e6db74">&#39;遇见图床&#39;</span>],tool<span style="color:#f92672">.</span>FileOpen(<span style="color:#e6db74">&#34;/home/aero/Public/2022-02-27_00-12.png&#34;</span>))
-    <span style="color:#66d9ef">if</span> imageUrl <span style="color:#f92672">!=</span> <span style="color:#66d9ef">False</span>:
-        print(imageUrl)
-    <span style="color:#75715e"># 上传剪切板图片</span>
-    imgurl <span style="color:#f92672">=</span> tool<span style="color:#f92672">.</span>getClipFileImage()
-    <span style="color:#66d9ef">if</span> imgurl <span style="color:#f92672">!=</span> <span style="color:#66d9ef">False</span>:
-        print(imgurl)
-
-</code></pre></div><p><em>Results:</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> @author      : aero (2254228017@qq.com)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> @file        : imagePost
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> @created     : 星期六 2月 26, 2022 20:08:57 CST
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> @github      : https://github.com/denstiny
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> @blog        : https://denstiny.github.io
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> sys
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> subprocess
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> datetime
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>root <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;遇见图床&#39;</span>: {<span style="color:#e6db74">&#39;url&#39;</span>:<span style="color:#e6db74">&#39;https://www.hualigs.cn/api/upload&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;token&#39;</span>:<span style="color:#e6db74">&#39;xxx&#39;</span>},
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;牛图网&#39;</span>:
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">&#39;url&#39;</span>:<span style="color:#e6db74">&#39;https://www.niupic.com/api/upload&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;token&#39;</span>:<span style="color:#e6db74">&#39;xxx&#39;</span>}}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PostImage</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">currentTime</span>(self,filetype):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            filetype (): 文件后缀
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Returns: 返回当前时间的文件名称
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        time <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-%H-%M-%S&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> time<span style="color:#f92672">+</span>filetype
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">PostImage</span>(self, head,files):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        上传图片到图床
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            head (): 请求头字典
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            files (): 文件包装数组
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Returns:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            返回图片链接,否则返回False
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#34;apiType&#34;</span>:<span style="color:#e6db74">&#39;majorhua&#39;</span>, <span style="color:#e6db74">&#34;token&#34;</span>:head[<span style="color:#e6db74">&#39;token&#39;</span>] }
+</span></span><span style="display:flex;"><span>        res <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(url<span style="color:#f92672">=</span> head[<span style="color:#e6db74">&#39;url&#39;</span>],data<span style="color:#f92672">=</span>data,files<span style="color:#f92672">=</span>files)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>image<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>        jsonString <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span>content<span style="color:#f92672">.</span>decode()
+</span></span><span style="display:flex;"><span>        userData <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(jsonString)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> userData[<span style="color:#e6db74">&#39;code&#39;</span>] <span style="color:#f92672">!=</span> <span style="color:#ae81ff">200</span> <span style="color:#f92672">and</span> userData[<span style="color:#e6db74">&#39;msg&#39;</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;success&#39;</span>:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#34;error:Upload failed&#34;</span>,file<span style="color:#f92672">=</span>sys<span style="color:#f92672">.</span>stderr)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> userData[<span style="color:#e6db74">&#39;data&#39;</span>][<span style="color:#e6db74">&#39;url&#39;</span>][<span style="color:#e6db74">&#39;distribute&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">FileOpen</span>(self,filePath):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            filePath (): 文件路径
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Returns:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            返回包装好的文件数组
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>image <span style="color:#f92672">=</span> open(filePath,<span style="color:#e6db74">&#39;rb&#39;</span>)
+</span></span><span style="display:flex;"><span>        imageName <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>basename(filePath)
+</span></span><span style="display:flex;"><span>        files <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;image&#34;</span>:(imageName,self<span style="color:#f92672">.</span>image,<span style="color:#e6db74">&#39;image/jpeg&#39;</span>)}
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> files
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_xclip</span>(self,cmd):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        执行查找和保存图片的命令，并返回状态
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            cmd (): 执行的shell命令
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Returns:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            成功 返回True 失败 返回False
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        sub <span style="color:#f92672">=</span> subprocess<span style="color:#f92672">.</span>run(cmd,shell<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,stdout<span style="color:#f92672">=</span>subprocess<span style="color:#f92672">.</span>PIPE)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> sub<span style="color:#f92672">.</span>returncode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getClipFileImage</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34; 获取剪切板图片 &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        has_png <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xclip -selection clipboard -t TARGETS -o | grep image/png&#34;</span>
+</span></span><span style="display:flex;"><span>        has_jpg <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xclip -selection clipboard -t TARGETS -o | grep image/jpg&#34;</span>
+</span></span><span style="display:flex;"><span>        save_png <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xclip -selection clipboard -t image/png -o &gt; &#34;</span>
+</span></span><span style="display:flex;"><span>        save_jpg <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xclip -selection clipboard -t image/jpg -o &gt; &#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>get_xclip(has_png) <span style="color:#f92672">==</span>  <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            file_path <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>currentTime(<span style="color:#e6db74">&#39;.png&#39;</span>)
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>get_xclip(save_png <span style="color:#f92672">+</span> file_path)
+</span></span><span style="display:flex;"><span>            image_url <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>PostImage(root[<span style="color:#e6db74">&#39;遇见图床&#39;</span>],self<span style="color:#f92672">.</span>FileOpen(file_path))
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> image_url <span style="color:#f92672">!=</span> <span style="color:#66d9ef">False</span>:
+</span></span><span style="display:flex;"><span>                os<span style="color:#f92672">.</span>remove(file_path)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> image_url
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> self<span style="color:#f92672">.</span>get_xclip(has_jpg) <span style="color:#f92672">==</span>  <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            file_path <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>currentTime(<span style="color:#e6db74">&#39;.jpg&#39;</span>)
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>get_xclip(save_jpg <span style="color:#f92672">+</span> file_path)
+</span></span><span style="display:flex;"><span>            image_url <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>PostImage(root[<span style="color:#e6db74">&#39;遇见图床&#39;</span>],self<span style="color:#f92672">.</span>FileOpen(file_path))
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> image_url <span style="color:#f92672">!=</span> <span style="color:#66d9ef">False</span>:
+</span></span><span style="display:flex;"><span>                os<span style="color:#f92672">.</span>remove(file_path)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> image_url
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#34;error:no find xclip image&#34;</span>,file<span style="color:#f92672">=</span>sys<span style="color:#f92672">.</span>stderr)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    tool <span style="color:#f92672">=</span> PostImage()
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 上传指定地址图片</span>
+</span></span><span style="display:flex;"><span>    imageUrl <span style="color:#f92672">=</span> tool<span style="color:#f92672">.</span>PostImage(root[<span style="color:#e6db74">&#39;遇见图床&#39;</span>],tool<span style="color:#f92672">.</span>FileOpen(<span style="color:#e6db74">&#34;/home/aero/Public/2022-02-27_00-12.png&#34;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> imageUrl <span style="color:#f92672">!=</span> <span style="color:#66d9ef">False</span>:
+</span></span><span style="display:flex;"><span>        print(imageUrl)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 上传剪切板图片</span>
+</span></span><span style="display:flex;"><span>    imgurl <span style="color:#f92672">=</span> tool<span style="color:#f92672">.</span>getClipFileImage()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> imgurl <span style="color:#f92672">!=</span> <span style="color:#66d9ef">False</span>:
+</span></span><span style="display:flex;"><span>        print(imgurl)
+</span></span></code></pre></div><p><em>Results:</em></p>
 <pre tabindex="0"><code>https://www.hualigs.cn/image/621a59402726f.jpg
 https://www.hualigs.cn/image/621b177c820b9.jpg
 </code></pre><h3 id="效果">效果</h3>

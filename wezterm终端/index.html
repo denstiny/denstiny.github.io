@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.93.1" />
   <link rel="canonical" href="https://denstiny.github.io/wezterm%E7%BB%88%E7%AB%AF/">
 
   
     
     <meta name="description" content="wezterm  使用gpu加速终端，动态渲染终端内容,使用lua作为配置，具有高度自定义
  
-配置文件 local wezterm = require &#39;wezterm&#39;; -- window resize event config require(&#34;wezterm-resize-config&#34;) -- key require(&#34;key-bind&#34;) -- A helper function for my fallback fonts function font_with_fallback(name, params) local names = {name, &#34;DengXian&#34;,&#34;Noto Color Emoji&#34;, &#34;JetBrains &#34;} return wezterm.font_with_fallback(names, params) end wezterm.on(&#34;window-config-reloaded&#34;, function(window, pane) wezterm.log_info(&#34;the config was reloaded for this window!&#34;); end) return { warn_about_missing_glyphs=false, window_padding = { left = 0, right = 0, top = 0, bottom = 0 }, color_scheme = &#34;Lavandula&#34;, scrollback_lines=99999, harfbuzz_features = {&#34;zero&#34;}, hide_tab_bar_if_only_one_tab = false, enable_tab_bar = false, freetype_load_target = &#34;Light&#34;, font_size = 16.">
+配置文件  local wezterm = require &#39;wezterm&#39;;  -- window resize event config require(&#34;wezterm-resize-config&#34;)  -- key require(&#34;key-bind&#34;)  -- A helper function for my fallback fonts  function font_with_fallback(name, params)  local names = {name, &#34;DengXian&#34;,&#34;Noto Color Emoji&#34;, &#34;JetBrains &#34;}  return wezterm.font_with_fallback(names, params) end   wezterm.on(&#34;window-config-reloaded&#34;, function(window, pane)  wezterm.log_info(&#34;the config was reloaded for this window!&#34;); end)   return {  warn_about_missing_glyphs=false,  window_padding = {  left = 0,  right = 0,  top = 0,  bottom = 0  },  color_scheme = &#34;Lavandula&#34;,  scrollback_lines=99999,  harfbuzz_features = {&#34;zero&#34;},  hide_tab_bar_if_only_one_tab = false,  enable_tab_bar = false,  freetype_load_target = &#34;Light&#34;,  font_size = 16.">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -137,91 +137,90 @@ if (!doNotTrack) {
 </blockquote>
 <p><a href="https://imgtu.com/i/7LSSBR"><img src="https://s4.ax1x.com/2022/01/26/7LSSBR.png" alt="7LSSBR.png"></a></p>
 <h2 id="配置文件">配置文件</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua">
-<span style="color:#66d9ef">local</span> wezterm <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#39;wezterm&#39;</span>;
-
-<span style="color:#75715e">-- window resize event config</span>
-require(<span style="color:#e6db74">&#34;wezterm-resize-config&#34;</span>)
-
-<span style="color:#75715e">-- key</span>
-require(<span style="color:#e6db74">&#34;key-bind&#34;</span>)
-
-<span style="color:#75715e">-- A helper function for my fallback fonts</span>
-
-<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">font_with_fallback</span>(name, params)
-    <span style="color:#66d9ef">local</span> names <span style="color:#f92672">=</span> {name, <span style="color:#e6db74">&#34;DengXian&#34;</span>,<span style="color:#e6db74">&#34;Noto Color Emoji&#34;</span>, <span style="color:#e6db74">&#34;JetBrains &#34;</span>}
-    <span style="color:#66d9ef">return</span> wezterm.font_with_fallback(names, params)
-<span style="color:#66d9ef">end</span>
-
-
-wezterm.on(<span style="color:#e6db74">&#34;window-config-reloaded&#34;</span>, <span style="color:#66d9ef">function</span>(window, pane)
-  wezterm.log_info(<span style="color:#e6db74">&#34;the config was reloaded for this window!&#34;</span>);
-<span style="color:#66d9ef">end</span>)
-
-
-<span style="color:#66d9ef">return</span> {
-    warn_about_missing_glyphs<span style="color:#f92672">=</span><span style="color:#66d9ef">false</span>,
-    window_padding <span style="color:#f92672">=</span> {
-        left <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
-        right <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
-        top <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
-        bottom <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-    },
-    color_scheme <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Lavandula&#34;</span>,
-    scrollback_lines<span style="color:#f92672">=</span><span style="color:#ae81ff">99999</span>,
-    harfbuzz_features <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;zero&#34;</span>},
-    hide_tab_bar_if_only_one_tab <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>,
-    enable_tab_bar <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>,
-    freetype_load_target <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Light&#34;</span>,
-    font_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">16.0</span>,
-    freetype_render_target <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HorizontalLcd&#34;</span>,
-    font <span style="color:#f92672">=</span> font_with_fallback(<span style="color:#e6db74">&#34;Fira Code&#34;</span>),
-    font_rules<span style="color:#f92672">=</span> {
-        <span style="color:#75715e">-- Select a fancy italic font for italic text</span>
-        {
-            italic <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>,
-            font <span style="color:#f92672">=</span> font_with_fallback(<span style="color:#e6db74">&#34;Cascadia Code PL&#34;</span>,{italic<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>}),
-        },
-
-        <span style="color:#75715e">-- Similarly, a fancy bold+italic font</span>
-        {
-            italic <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>,
-            intensity <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Bold&#34;</span>,
-            font <span style="color:#f92672">=</span> font_with_fallback(<span style="color:#e6db74">&#34;Cascadia Code PL&#34;</span>,{bold<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>,italic<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>}),
-        },
-
-        <span style="color:#75715e">-- Make regular bold text a different color to make it stand out even more</span>
-        {
-            intensity <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Bold&#34;</span>,
-            font <span style="color:#f92672">=</span> font_with_fallback(<span style="color:#e6db74">&#34;Cascadia Code PL&#34;</span>, {bold<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>}),
-        },
-
-        <span style="color:#75715e">-- For half-intensity text, use a lighter weight font</span>
-        {
-            intensity <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Half&#34;</span>,
-            font <span style="color:#f92672">=</span> font_with_fallback(<span style="color:#e6db74">&#34;Cascadia Code PL&#34;</span>),
-        },
-    },
-    keys <span style="color:#f92672">=</span> keyBind()
-}
-
-</code></pre></div><h2 id="按键绑定">按键绑定</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua">
-<span style="color:#66d9ef">local</span> wezterm <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#39;wezterm&#39;</span>;
-<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">keyBind</span>()
-    keys <span style="color:#f92672">=</span> {
-    {key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;k&#34;</span>, mods<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CTRL|SHIFT&#34;</span>, action<span style="color:#f92672">=</span>wezterm.action{ScrollByPage<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>}},
-    {key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;j&#34;</span>, mods<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CTRL|SHIFT&#34;</span>, action<span style="color:#f92672">=</span>wezterm.action{ScrollByPage<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>}},
-    {key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;k&#34;</span>, mods<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CTRL&#34;</span>, action<span style="color:#f92672">=</span>wezterm.action{ScrollByLine<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>}},
-    {key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;j&#34;</span>, mods<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CTRL&#34;</span>, action<span style="color:#f92672">=</span>wezterm.action{ScrollByLine<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>}},
-    {key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;f&#34;</span>, mods<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CTRL&#34;</span>, action<span style="color:#f92672">=</span>wezterm.action{Search<span style="color:#f92672">=</span>{CaseSensitiveString<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>}}},
-        {key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;=&#34;</span>, mods <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;CTRL&#34;</span>, action <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ResetFontSize&#34;</span>},
-    {key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;+&#34;</span>, mods <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;CTRL&#34;</span>, action <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;IncreaseFontSize&#34;</span>},
-    {key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;-&#34;</span>, mods <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;CTRL&#34;</span>, action <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;DecreaseFontSize&#34;</span>}
-    }
-  <span style="color:#66d9ef">return</span> keys
-<span style="color:#66d9ef">end</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> wezterm <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#39;wezterm&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- window resize event config</span>
+</span></span><span style="display:flex;"><span>require(<span style="color:#e6db74">&#34;wezterm-resize-config&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- key</span>
+</span></span><span style="display:flex;"><span>require(<span style="color:#e6db74">&#34;key-bind&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- A helper function for my fallback fonts</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">font_with_fallback</span>(name, params)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> names <span style="color:#f92672">=</span> {name, <span style="color:#e6db74">&#34;DengXian&#34;</span>,<span style="color:#e6db74">&#34;Noto Color Emoji&#34;</span>, <span style="color:#e6db74">&#34;JetBrains &#34;</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> wezterm.font_with_fallback(names, params)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>wezterm.on(<span style="color:#e6db74">&#34;window-config-reloaded&#34;</span>, <span style="color:#66d9ef">function</span>(window, pane)
+</span></span><span style="display:flex;"><span>  wezterm.log_info(<span style="color:#e6db74">&#34;the config was reloaded for this window!&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>    warn_about_missing_glyphs<span style="color:#f92672">=</span><span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    window_padding <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        left <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        right <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        top <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        bottom <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    color_scheme <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Lavandula&#34;</span>,
+</span></span><span style="display:flex;"><span>    scrollback_lines<span style="color:#f92672">=</span><span style="color:#ae81ff">99999</span>,
+</span></span><span style="display:flex;"><span>    harfbuzz_features <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;zero&#34;</span>},
+</span></span><span style="display:flex;"><span>    hide_tab_bar_if_only_one_tab <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    enable_tab_bar <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    freetype_load_target <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Light&#34;</span>,
+</span></span><span style="display:flex;"><span>    font_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">16.0</span>,
+</span></span><span style="display:flex;"><span>    freetype_render_target <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HorizontalLcd&#34;</span>,
+</span></span><span style="display:flex;"><span>    font <span style="color:#f92672">=</span> font_with_fallback(<span style="color:#e6db74">&#34;Fira Code&#34;</span>),
+</span></span><span style="display:flex;"><span>    font_rules<span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- Select a fancy italic font for italic text</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            italic <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>            font <span style="color:#f92672">=</span> font_with_fallback(<span style="color:#e6db74">&#34;Cascadia Code PL&#34;</span>,{italic<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>}),
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- Similarly, a fancy bold+italic font</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            italic <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>            intensity <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Bold&#34;</span>,
+</span></span><span style="display:flex;"><span>            font <span style="color:#f92672">=</span> font_with_fallback(<span style="color:#e6db74">&#34;Cascadia Code PL&#34;</span>,{bold<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>,italic<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>}),
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- Make regular bold text a different color to make it stand out even more</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            intensity <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Bold&#34;</span>,
+</span></span><span style="display:flex;"><span>            font <span style="color:#f92672">=</span> font_with_fallback(<span style="color:#e6db74">&#34;Cascadia Code PL&#34;</span>, {bold<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>}),
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- For half-intensity text, use a lighter weight font</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            intensity <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Half&#34;</span>,
+</span></span><span style="display:flex;"><span>            font <span style="color:#f92672">=</span> font_with_fallback(<span style="color:#e6db74">&#34;Cascadia Code PL&#34;</span>),
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    keys <span style="color:#f92672">=</span> keyBind()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="按键绑定">按键绑定</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> wezterm <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#39;wezterm&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">keyBind</span>()
+</span></span><span style="display:flex;"><span>    keys <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    {key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;k&#34;</span>, mods<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CTRL|SHIFT&#34;</span>, action<span style="color:#f92672">=</span>wezterm.action{ScrollByPage<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>}},
+</span></span><span style="display:flex;"><span>    {key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;j&#34;</span>, mods<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CTRL|SHIFT&#34;</span>, action<span style="color:#f92672">=</span>wezterm.action{ScrollByPage<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>}},
+</span></span><span style="display:flex;"><span>    {key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;k&#34;</span>, mods<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CTRL&#34;</span>, action<span style="color:#f92672">=</span>wezterm.action{ScrollByLine<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>}},
+</span></span><span style="display:flex;"><span>    {key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;j&#34;</span>, mods<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CTRL&#34;</span>, action<span style="color:#f92672">=</span>wezterm.action{ScrollByLine<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>}},
+</span></span><span style="display:flex;"><span>    {key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;f&#34;</span>, mods<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CTRL&#34;</span>, action<span style="color:#f92672">=</span>wezterm.action{Search<span style="color:#f92672">=</span>{CaseSensitiveString<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>}}},
+</span></span><span style="display:flex;"><span>        {key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;=&#34;</span>, mods <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;CTRL&#34;</span>, action <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ResetFontSize&#34;</span>},
+</span></span><span style="display:flex;"><span>    {key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;+&#34;</span>, mods <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;CTRL&#34;</span>, action <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;IncreaseFontSize&#34;</span>},
+</span></span><span style="display:flex;"><span>    {key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;-&#34;</span>, mods <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;CTRL&#34;</span>, action <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;DecreaseFontSize&#34;</span>}
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> keys
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div>
 
 
 

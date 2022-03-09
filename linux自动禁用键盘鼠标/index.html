@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.93.1" />
   <link rel="canonical" href="https://denstiny.github.io/linux%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E9%94%AE%E7%9B%98%E9%BC%A0%E6%A0%87/">
 
   
@@ -134,8 +134,8 @@ if (!doNotTrack) {
 <p><strong>我当前使用的是awesome wm桌面环境，由于桌子比较小，所以外接的键盘是直接放在笔记本上面，另外还接了蓝牙鼠标，为了避免误触需要把默认的键盘鼠标禁用掉，但是每次开机都要自己手动禁用感觉很麻烦想写个脚本</strong></p>
 <h2 id="xinput-命令查看当前笔记本连接的设备"><code>xinput</code> 命令查看当前笔记本连接的设备</h2>
 <p>使用方法</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">xinput
-</code></pre></div><p><em>Results:</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>xinput
+</span></span></code></pre></div><p><em>Results:</em></p>
 <pre tabindex="0"><code>⎡ Virtual core pointer                    	id=2	[master pointer  (3)]
 ⎜   ↳ Virtual core XTEST pointer              	id=4	[slave  pointer  (2)]
 ⎜   ↳ SYNA1202:00 06CB:CD65 Mouse             	id=20	[slave  pointer  (2)]
@@ -161,23 +161,23 @@ if (!doNotTrack) {
     ↳ Compx 2.4G Wireless Receiver Keyboard   	id=24	[slave  keyboard (3)]
     ↳ AT Translated Set 2 keyboard            	id=23	[slave  keyboard (3)]
 </code></pre><h3 id="禁用默认设备">禁用默认设备</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># xinput --enable &lt;设备名称&gt;  # 启用</span>
-<span style="color:#75715e"># xinput --disable &lt;设备名称&gt; # 禁用</span>
-<span style="color:#75715e"># 禁用鼠标</span>
-xinput --disable  <span style="color:#e6db74">`</span>xinput  | grep Touch | awk -F <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#e6db74">&#39;{print $6}&#39;</span> | awk -F <span style="color:#e6db74">&#39;=&#39;</span> <span style="color:#e6db74">&#39;{print $2}&#39;</span><span style="color:#e6db74">`</span>
-<span style="color:#75715e"># 禁用键盘</span>
-xinput --disable AT<span style="color:#ae81ff">\ </span>Translated<span style="color:#ae81ff">\ </span>Set<span style="color:#ae81ff">\ </span>2<span style="color:#ae81ff">\ </span>keyboard
-</code></pre></div><h2 id="查找外设">查找外设</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># xinput --enable &lt;设备名称&gt;  # 启用</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># xinput --disable &lt;设备名称&gt; # 禁用</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 禁用鼠标</span>
+</span></span><span style="display:flex;"><span>xinput --disable  <span style="color:#e6db74">`</span>xinput  | grep Touch | awk -F <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#e6db74">&#39;{print $6}&#39;</span> | awk -F <span style="color:#e6db74">&#39;=&#39;</span> <span style="color:#e6db74">&#39;{print $2}&#39;</span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 禁用键盘</span>
+</span></span><span style="display:flex;"><span>xinput --disable AT<span style="color:#ae81ff">\ </span>Translated<span style="color:#ae81ff">\ </span>Set<span style="color:#ae81ff">\ </span>2<span style="color:#ae81ff">\ </span>keyboard
+</span></span></code></pre></div><h2 id="查找外设">查找外设</h2>
 <p><em>因为我发现不同的设备的外设名字是不一样的，所以说一下怎么找</em></p>
 <h3 id="查找">查找</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#我们可以在设备连接的时候查询一下设备列表</span>
-xinput &gt; test
-<span style="color:#75715e"># 然后拔出设备</span>
-xinput &gt; test1
-<span style="color:#75715e"># diff 进行对比</span>
-diff test test1
-<span style="color:#75715e">#找到多出来的那个</span>
-</code></pre></div><p><em>Results:</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e">#我们可以在设备连接的时候查询一下设备列表</span>
+</span></span><span style="display:flex;"><span>xinput &gt; test
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 然后拔出设备</span>
+</span></span><span style="display:flex;"><span>xinput &gt; test1
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># diff 进行对比</span>
+</span></span><span style="display:flex;"><span>diff test test1
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#找到多出来的那个</span>
+</span></span></code></pre></div><p><em>Results:</em></p>
 <pre tabindex="0"><code>4,5d3
 &lt; ⎜   ↳ 2.4G Mouse Consumer Control             	id=15	[slave  pointer  (2)]
 &lt; ⎜   ↳ 2.4G Mouse                              	id=17	[slave  pointer  (2)]
@@ -186,55 +186,54 @@ diff test test1
 &lt;     ↳ 2.4G Mouse System Control               	id=18	[slave  keyboard (3)]
 &lt;     ↳ 2.4G Mouse          
 </code></pre><h3 id="脚本">脚本</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!bin/bash
-</span><span style="color:#75715e"></span>
-lock<span style="color:#f92672">=</span>$$
-rm -a ~/.shell.lok*
-touch ~/.shell.lok$lock
-
-Keyboard <span style="color:#f92672">()</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#75715e"># 判断键盘</span>
-    xinput | grep -i <span style="color:#e6db74">&#34;Compx 2.4G Wireless Receiver Keyboard&#34;</span> &amp;&gt; /dev/null
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $? <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">]</span>;
-    <span style="color:#66d9ef">then</span> 
-        xinput --enable AT<span style="color:#ae81ff">\ </span>Translated<span style="color:#ae81ff">\ </span>Set<span style="color:#ae81ff">\ </span>2<span style="color:#ae81ff">\ </span>keyboard
-        echo <span style="color:#e6db74">&#34;启用默认键盘&#34;</span>
-    <span style="color:#66d9ef">else</span>
-        xinput --disable AT<span style="color:#ae81ff">\ </span>Translated<span style="color:#ae81ff">\ </span>Set<span style="color:#ae81ff">\ </span>2<span style="color:#ae81ff">\ </span>keyboard
-        echo <span style="color:#e6db74">&#34;关闭默认键盘&#34;</span>
-    <span style="color:#66d9ef">fi</span>
-<span style="color:#f92672">}</span>
-
-Mouse<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-    <span style="color:#75715e"># 判断鼠标</span>
-    xinput | grep -i <span style="color:#e6db74">&#34;2.4G Mouse System Control&#34;</span> &amp;&gt; /dev/null
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $? <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">]</span>;
-    <span style="color:#66d9ef">then</span> 
-        echo <span style="color:#e6db74">&#34;启用默认鼠标&#34;</span>
-        xinput --enable  <span style="color:#e6db74">`</span>xinput  | grep Touch | awk -F <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#e6db74">&#39;{print $6}&#39;</span> | awk -F <span style="color:#e6db74">&#39;=&#39;</span> <span style="color:#e6db74">&#39;{print $2}&#39;</span><span style="color:#e6db74">`</span>
-    <span style="color:#66d9ef">else</span>
-        echo <span style="color:#e6db74">&#34;关闭默认鼠标&#34;</span>
-        xinput --disable  <span style="color:#e6db74">`</span>xinput  | grep Touch | awk -F <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#e6db74">&#39;{print $6}&#39;</span> | awk -F <span style="color:#e6db74">&#39;=&#39;</span> <span style="color:#e6db74">&#39;{print $2}&#39;</span><span style="color:#e6db74">`</span>
-    <span style="color:#66d9ef">fi</span>
-<span style="color:#f92672">}</span>
-
-Run<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-    ls -a ~/ | grep shell$lock &amp;&gt; /dev/null
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> $? <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
-        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
-    <span style="color:#66d9ef">else</span>
-        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
-    <span style="color:#66d9ef">fi</span>
-<span style="color:#f92672">}</span>
-
-<span style="color:#66d9ef">while</span> <span style="color:#f92672">[[</span> Run <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">do</span>
-    Keyboard
-    Mouse
-    sleep <span style="color:#ae81ff">1</span>
-<span style="color:#66d9ef">done</span>
-
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e">#!bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>lock<span style="color:#f92672">=</span>$$
+</span></span><span style="display:flex;"><span>rm -a ~/.shell.lok*
+</span></span><span style="display:flex;"><span>touch ~/.shell.lok$lock
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Keyboard <span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 判断键盘</span>
+</span></span><span style="display:flex;"><span>    xinput | grep -i <span style="color:#e6db74">&#34;Compx 2.4G Wireless Receiver Keyboard&#34;</span> &amp;&gt; /dev/null
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $? <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">then</span> 
+</span></span><span style="display:flex;"><span>        xinput --enable AT<span style="color:#ae81ff">\ </span>Translated<span style="color:#ae81ff">\ </span>Set<span style="color:#ae81ff">\ </span>2<span style="color:#ae81ff">\ </span>keyboard
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;启用默认键盘&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        xinput --disable AT<span style="color:#ae81ff">\ </span>Translated<span style="color:#ae81ff">\ </span>Set<span style="color:#ae81ff">\ </span>2<span style="color:#ae81ff">\ </span>keyboard
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;关闭默认键盘&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mouse<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 判断鼠标</span>
+</span></span><span style="display:flex;"><span>    xinput | grep -i <span style="color:#e6db74">&#34;2.4G Mouse System Control&#34;</span> &amp;&gt; /dev/null
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $? <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">then</span> 
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;启用默认鼠标&#34;</span>
+</span></span><span style="display:flex;"><span>        xinput --enable  <span style="color:#e6db74">`</span>xinput  | grep Touch | awk -F <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#e6db74">&#39;{print $6}&#39;</span> | awk -F <span style="color:#e6db74">&#39;=&#39;</span> <span style="color:#e6db74">&#39;{print $2}&#39;</span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;关闭默认鼠标&#34;</span>
+</span></span><span style="display:flex;"><span>        xinput --disable  <span style="color:#e6db74">`</span>xinput  | grep Touch | awk -F <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#e6db74">&#39;{print $6}&#39;</span> | awk -F <span style="color:#e6db74">&#39;=&#39;</span> <span style="color:#e6db74">&#39;{print $2}&#39;</span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Run<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    ls -a ~/ | grep shell$lock &amp;&gt; /dev/null
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> $? <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#f92672">[[</span> Run <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    Keyboard
+</span></span><span style="display:flex;"><span>    Mouse
+</span></span><span style="display:flex;"><span>    sleep <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span></code></pre></div>
 
 
 

@@ -6,11 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <meta name="generator" content="Hugo 0.93.1" />
-  <link rel="canonical" href="https://denstiny.github.io/tags/terminal/">
+  <link rel="canonical" href="https://denstiny.github.io/">
 
   
     
-    <meta name="description" content="terminal">
+      <meta name="description" content="A Hugo theme made with PaperCSS, the less formal CSS framework.">
+    
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -45,7 +46,9 @@ if (!doNotTrack) {
 
   
   
-  <title>terminal | Sooner or later, personal blog</title>
+    
+  
+  <title>Sooner or later, personal blog</title>
 </head>
 
   <body>
@@ -81,9 +84,22 @@ if (!doNotTrack) {
       <main>
         
 
-<h1>terminal</h1>
+<h1>Sooner or later, personal blog</h1>
 
 
+
+
+  <h2 class="post-list summary">
+    <a href="/linux%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E9%94%AE%E7%9B%98%E9%BC%A0%E6%A0%87/">
+      Linux自动禁用键盘鼠标
+    </a>
+  </h2>
+  
+    linux自动禁用鼠标键盘 我当前使用的是awesome wm桌面环境，由于桌子比较小，所以外接的键盘是直接放在笔记本上面，另外还接了蓝牙鼠标，为了避免误触需要把默认的键盘鼠标禁用掉，但是每次开机都要自己手动禁用感觉很麻烦想写个脚本
+xinput 命令查看当前笔记本连接的设备 使用方法
+xinput Results:
+⎡ Virtual core pointer id=2	[master pointer (3)] ⎜ ↳ Virtual core XTEST pointer id=4	[slave pointer (2)] ⎜ ↳ SYNA1202:00 06CB:CD65 Mouse id=20	[slave pointer (2)] ⎜ ↳ 2.4G Mouse Consumer Control id=15	[slave pointer (2)] ⎜ ↳ 2.4G Mouse id=17	[slave pointer (2)] ⎜ ↳ Compx 2.4G Wireless Receiver Mouse id=13	[slave pointer (2)] ⎜ ↳ Compx 2.4G Wireless Receiver Keyboard id=14	[slave pointer (2)] ⎜ ↳ SYNA1202:00 06CB:CD65 Touchpad id=21	[slave pointer (2)] ⎣ Virtual core keyboard id=3	[master keyboard (2)] ↳ Virtual core XTEST keyboard id=5	[slave keyboard (3)] ↳ Power Button id=6	[slave keyboard (3)] ↳ Video Bus id=7	[slave keyboard (3)] ↳ Video Bus id=8	[slave keyboard (3)] ↳ Power Button id=9	[slave keyboard (3)] ↳ Lid Switch id=10	[slave keyboard (3)] ↳ Sleep Button id=11	[slave keyboard (3)] ↳ Chicony USB2.
+  
 
   <h2 class="post-list summary">
     <a href="/wezterm%E7%BB%88%E7%AB%AF/">
@@ -95,6 +111,32 @@ if (!doNotTrack) {
  
 配置文件  local wezterm = require &#39;wezterm&#39;;  -- window resize event config require(&#34;wezterm-resize-config&#34;)  -- key require(&#34;key-bind&#34;)  -- A helper function for my fallback fonts  function font_with_fallback(name, params)  local names = {name, &#34;DengXian&#34;,&#34;Noto Color Emoji&#34;, &#34;JetBrains &#34;}  return wezterm.font_with_fallback(names, params) end   wezterm.on(&#34;window-config-reloaded&#34;, function(window, pane)  wezterm.log_info(&#34;the config was reloaded for this window!&#34;); end)   return {  warn_about_missing_glyphs=false,  window_padding = {  left = 0,  right = 0,  top = 0,  bottom = 0  },  color_scheme = &#34;Lavandula&#34;,  scrollback_lines=99999,  harfbuzz_features = {&#34;zero&#34;},  hide_tab_bar_if_only_one_tab = false,  enable_tab_bar = false,  freetype_load_target = &#34;Light&#34;,  font_size = 16.
   
+
+  <h2 class="post-list summary">
+    <a href="/%E6%88%92%E7%83%9F%E7%AC%AC%E4%BA%8C%E5%A4%A9/">
+      
+    </a>
+  </h2>
+  
+    
+  
+
+
+<div class="row flex-center margin-top-large">
+ 
+  <a href="/" class="paper-btn">&laquo;&laquo;</a>
+  <a href="/" class="paper-btn">&laquo;</a>
+
+    <a class="paper-btn" href="/">1</a>
+
+    <a class="paper-btn active" href="/page/2/">2</a>
+
+    <a  class="paper-btn  disabled">&raquo;</a>
+
+    <a href="/page/2/" class="paper-btn">&raquo;&raquo;</a>
+  </div>
+
+
 
 
       </main>

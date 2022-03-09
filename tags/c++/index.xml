@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>c&#43;&#43; on Sooner or later, personal blog</title>
+    <link>https://denstiny.github.io/tags/c&#43;&#43;/</link>
+    <description>Recent content in c&#43;&#43; on Sooner or later, personal blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 28 Feb 2022 19:44:34 +0800</lastBuildDate><atom:link href="https://denstiny.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43;实现http服务器</title>
+      <link>https://denstiny.github.io/c-%E5%AE%9E%E7%8E%B0http%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <pubDate>Mon, 28 Feb 2022 19:44:34 +0800</pubDate>
+      
+      <guid>https://denstiny.github.io/c-%E5%AE%9E%E7%8E%B0http%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description>c++ 实现http服务器 cpp 代码实现 main.cpp /** * File : main/main.cpp * Author : denstiny &amp;lt;2254228017@qq.com&amp;gt; * Date : 04.04.2021 * Last Modified Date: 04.04.2021 * Last Modified By : denstiny &amp;lt;2254228017@qq.com&amp;gt; */ #include &amp;#34;../include/http.hpp&amp;#34;#include &amp;lt;csignal&amp;gt;#include &amp;lt;cstdio&amp;gt;#include &amp;lt;cstdlib&amp;gt;#include &amp;lt;functional&amp;gt;#include &amp;lt;iterator&amp;gt;#include &amp;lt;strings.h&amp;gt;#include &amp;lt;sys/socket.h&amp;gt;#include &amp;lt;sys/wait.h&amp;gt;#include &amp;lt;unistd.h&amp;gt;#include &amp;lt;wait.h&amp;gt;  int main( int argc, char *argv[] ) {  ServerHander head;  int serverfd = head.InitServer(), clientfd = -1;  struct sockaddr_in clinetaddr;  bzero(&amp;amp;clinetaddr, sizeof(clinetaddr));  socklen_t clientlen = sizeof(clinetaddr);  cout &amp;lt;&amp;lt; &amp;#34;等待连接&amp;#34; &amp;lt;&amp;lt; endl;  pid_t pid = fork();     while (1) {  /* 开始执行任务 */   /* 利用多进程内存不会共享原理,调用多线程来做心跳包,当客户端接收到请求,则创建一个新的进程,来处理 客户端数据,当客户端数据合法,则作出回应,并新建一个线程,在有效时间内,客户端没有继续发送请求则 断开连接 */   /* 父进程 */  if(pid &amp;gt; 0) { // 主进程负责接受请求  while(( clientfd = accept(serverfd, (struct sockaddr *)&amp;amp;clinetaddr, &amp;amp;clientlen) ) !</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,7 +6,16 @@
     <description>Recent content in linux on Sooner or later, personal blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 21 Feb 2022 23:07:55 +0800</lastBuildDate><atom:link href="https://denstiny.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Feb 2022 19:44:34 +0800</lastBuildDate><atom:link href="https://denstiny.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43;实现http服务器</title>
+      <link>https://denstiny.github.io/c-%E5%AE%9E%E7%8E%B0http%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <pubDate>Mon, 28 Feb 2022 19:44:34 +0800</pubDate>
+      
+      <guid>https://denstiny.github.io/c-%E5%AE%9E%E7%8E%B0http%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description>c++ 实现http服务器 cpp 代码实现 main.cpp /** * File : main/main.cpp * Author : denstiny &amp;lt;2254228017@qq.com&amp;gt; * Date : 04.04.2021 * Last Modified Date: 04.04.2021 * Last Modified By : denstiny &amp;lt;2254228017@qq.com&amp;gt; */ #include &amp;#34;../include/http.hpp&amp;#34;#include &amp;lt;csignal&amp;gt;#include &amp;lt;cstdio&amp;gt;#include &amp;lt;cstdlib&amp;gt;#include &amp;lt;functional&amp;gt;#include &amp;lt;iterator&amp;gt;#include &amp;lt;strings.h&amp;gt;#include &amp;lt;sys/socket.h&amp;gt;#include &amp;lt;sys/wait.h&amp;gt;#include &amp;lt;unistd.h&amp;gt;#include &amp;lt;wait.h&amp;gt;  int main( int argc, char *argv[] ) {  ServerHander head;  int serverfd = head.InitServer(), clientfd = -1;  struct sockaddr_in clinetaddr;  bzero(&amp;amp;clinetaddr, sizeof(clinetaddr));  socklen_t clientlen = sizeof(clinetaddr);  cout &amp;lt;&amp;lt; &amp;#34;等待连接&amp;#34; &amp;lt;&amp;lt; endl;  pid_t pid = fork();     while (1) {  /* 开始执行任务 */   /* 利用多进程内存不会共享原理,调用多线程来做心跳包,当客户端接收到请求,则创建一个新的进程,来处理 客户端数据,当客户端数据合法,则作出回应,并新建一个线程,在有效时间内,客户端没有继续发送请求则 断开连接 */   /* 父进程 */  if(pid &amp;gt; 0) { // 主进程负责接受请求  while(( clientfd = accept(serverfd, (struct sockaddr *)&amp;amp;clinetaddr, &amp;amp;clientlen) ) !</description>
+    </item>
+    
     <item>
       <title>Linux自动禁用键盘鼠标</title>
       <link>https://denstiny.github.io/linux%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E9%94%AE%E7%9B%98%E9%BC%A0%E6%A0%87/</link>
@@ -27,7 +36,7 @@ xinput Results:
       <guid>https://denstiny.github.io/wezterm%E7%BB%88%E7%AB%AF/</guid>
       <description>wezterm  使用gpu加速终端，动态渲染终端内容,使用lua作为配置，具有高度自定义
  
-配置文件 local wezterm = require &amp;#39;wezterm&amp;#39;; -- window resize event config require(&amp;#34;wezterm-resize-config&amp;#34;) -- key require(&amp;#34;key-bind&amp;#34;) -- A helper function for my fallback fonts function font_with_fallback(name, params) local names = {name, &amp;#34;DengXian&amp;#34;,&amp;#34;Noto Color Emoji&amp;#34;, &amp;#34;JetBrains &amp;#34;} return wezterm.font_with_fallback(names, params) end wezterm.on(&amp;#34;window-config-reloaded&amp;#34;, function(window, pane) wezterm.log_info(&amp;#34;the config was reloaded for this window!&amp;#34;); end) return { warn_about_missing_glyphs=false, window_padding = { left = 0, right = 0, top = 0, bottom = 0 }, color_scheme = &amp;#34;Lavandula&amp;#34;, scrollback_lines=99999, harfbuzz_features = {&amp;#34;zero&amp;#34;}, hide_tab_bar_if_only_one_tab = false, enable_tab_bar = false, freetype_load_target = &amp;#34;Light&amp;#34;, font_size = 16.</description>
+配置文件  local wezterm = require &amp;#39;wezterm&amp;#39;;  -- window resize event config require(&amp;#34;wezterm-resize-config&amp;#34;)  -- key require(&amp;#34;key-bind&amp;#34;)  -- A helper function for my fallback fonts  function font_with_fallback(name, params)  local names = {name, &amp;#34;DengXian&amp;#34;,&amp;#34;Noto Color Emoji&amp;#34;, &amp;#34;JetBrains &amp;#34;}  return wezterm.font_with_fallback(names, params) end   wezterm.on(&amp;#34;window-config-reloaded&amp;#34;, function(window, pane)  wezterm.log_info(&amp;#34;the config was reloaded for this window!&amp;#34;); end)   return {  warn_about_missing_glyphs=false,  window_padding = {  left = 0,  right = 0,  top = 0,  bottom = 0  },  color_scheme = &amp;#34;Lavandula&amp;#34;,  scrollback_lines=99999,  harfbuzz_features = {&amp;#34;zero&amp;#34;},  hide_tab_bar_if_only_one_tab = false,  enable_tab_bar = false,  freetype_load_target = &amp;#34;Light&amp;#34;,  font_size = 16.</description>
     </item>
     
   </channel>

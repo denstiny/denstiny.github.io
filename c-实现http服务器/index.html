@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="generator" content="Hugo 0.93.1" />
+  <link rel="canonical" href="https://denstiny.github.io/c-%E5%AE%9E%E7%8E%B0http%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+  
+    
+    <meta name="description" content="c&#43;&#43; 实现http服务器 cpp 代码实现 main.cpp /** * File : main/main.cpp * Author : denstiny &lt;2254228017@qq.com&gt; * Date : 04.04.2021 * Last Modified Date: 04.04.2021 * Last Modified By : denstiny &lt;2254228017@qq.com&gt; */ #include &#34;../include/http.hpp&#34;#include &lt;csignal&gt;#include &lt;cstdio&gt;#include &lt;cstdlib&gt;#include &lt;functional&gt;#include &lt;iterator&gt;#include &lt;strings.h&gt;#include &lt;sys/socket.h&gt;#include &lt;sys/wait.h&gt;#include &lt;unistd.h&gt;#include &lt;wait.h&gt;  int main( int argc, char *argv[] ) {  ServerHander head;  int serverfd = head.InitServer(), clientfd = -1;  struct sockaddr_in clinetaddr;  bzero(&amp;clinetaddr, sizeof(clinetaddr));  socklen_t clientlen = sizeof(clinetaddr);  cout &lt;&lt; &#34;等待连接&#34; &lt;&lt; endl;  pid_t pid = fork();     while (1) {  /* 开始执行任务 */   /* 利用多进程内存不会共享原理,调用多线程来做心跳包,当客户端接收到请求,则创建一个新的进程,来处理 客户端数据,当客户端数据合法,则作出回应,并新建一个线程,在有效时间内,客户端没有继续发送请求则 断开连接 */   /* 父进程 */  if(pid &gt; 0) { // 主进程负责接受请求  while(( clientfd = accept(serverfd, (struct sockaddr *)&amp;clinetaddr, &amp;clientlen) ) !">
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" type="text/css" href="/css/paper.css">
+
+  
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css">
+  
+  
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123456789-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+  
+
+  
+  
+  <title>C&#43;&#43;实现http服务器 | Sooner or later, personal blog</title>
+</head>
+
+  <body>
+    <div class="container paper">
+      <nav class="border split-nav">
+  <div class="nav-brand">
+    <h3><a href="/">Sooner or later, personal blog</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+    <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+      
+        <li><a href="/">Blog</a></li>
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+        <li><a href="/about/">About</a></li>
+      
+        <li><a href="/index.xml">RSS</a></li>
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+      <main>
+        
+
+<h1 class="post-title">C&#43;&#43;实现http服务器</h1>
+
+
+<strong>Publish date: </strong>Feb 28, 2022
+<br>
+
+  <strong>Tags: </strong>
+  
+    <a href="/tags/linux">linux</a>
+  
+    <a href="/tags/c&#43;&#43;">c&#43;&#43;</a>
+  
+    <a href="/tags/http">http</a>
+  
+
+
+
+  
+
+<div class="child-borders">
+  <div class="toc border" aria-labelledby="toc-heading">
+    <h2 id="toc-heading">Table of contents</h2>
+    <ol>
+      
+        <li>
+          
+          
+          
+          
+          <a href="#%e7%bc%96%e8%af%91">
+            编译
+          </a>
+        </li>
+      
+        <li>
+          
+          
+          
+          
+          <a href="#lib%e6%96%87%e4%bb%b6">
+            lib文件
+          </a>
+        </li>
+      
+        <li>
+          
+          
+          
+          
+          <a href="#httpswwwhualigscnimage621cb8b4f11d6jpg%22%3e%3cimg%20src%3d%22https%3a%2f%2fwww.hualigs.cn%2fimage%2f621cb8b4f11d6.jpg%22%20alt%3d%22">
+            
+          </a>
+        </li>
+      
+        <li>
+          
+          
+          
+          
+          <a href="#%e6%95%88%e6%9e%9c">
+            效果
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</div>
+
+
+
+<h1 id="c-实现http服务器">c++ 实现http服务器</h1>
+<h3 id="cpp-代码实现">cpp 代码实现</h3>
+<h4 id="maincpp">main.cpp</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * File              : main/main.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Author            : denstiny &lt;2254228017@qq.com&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Date              : 04.04.2021
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Last Modified Date: 04.04.2021
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Last Modified By  : denstiny &lt;2254228017@qq.com&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;../include/http.hpp&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;csignal&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdlib&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iterator&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;strings.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/socket.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/wait.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;wait.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>( <span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[] ) {
+</span></span><span style="display:flex;"><span>    ServerHander head;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> serverfd <span style="color:#f92672">=</span> head.InitServer(), clientfd  <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">sockaddr_in</span> clinetaddr;
+</span></span><span style="display:flex;"><span>    bzero(<span style="color:#f92672">&amp;</span>clinetaddr, <span style="color:#66d9ef">sizeof</span>(clinetaddr));
+</span></span><span style="display:flex;"><span>    socklen_t clientlen <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(clinetaddr);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;等待连接&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    pid_t pid <span style="color:#f92672">=</span> fork();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">           开始执行任务
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        	利用多进程内存不会共享原理,调用多线程来做心跳包,当客户端接收到请求,则创建一个新的进程,来处理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        	客户端数据,当客户端数据合法,则作出回应,并新建一个线程,在有效时间内,客户端没有继续发送请求则
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        	断开连接
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        	父进程
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(pid <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {  		  <span style="color:#75715e">// 主进程负责接受请求
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">while</span>(( clientfd <span style="color:#f92672">=</span> accept(serverfd, (<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">sockaddr</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>clinetaddr, <span style="color:#f92672">&amp;</span>clientlen)  ) <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(head.Insert_work(clientfd, clinetaddr.sin_addr.s_addr)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            pid <span style="color:#f92672">=</span> fork();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        	子进程
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(pid <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) { 		  <span style="color:#75715e">// 客户端负责处理请求
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//	shutdown(serverfd,SHUT_WR);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            close(serverfd);  <span style="color:#75715e">// 子进程不需要服务端套接字,故关闭
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            string str;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">thread</span> th(Stop_work, ref(head), clientfd);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            	判断 客户端是否访问合法的数据,如果合法则作出回应 否则关闭连接
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            */</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span>(head.requests_cliet_state(clientfd, str)) {
+</span></span><span style="display:flex;"><span>                head.client_work <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>head.deal_cliet_requests(clientfd, str)) {
+</span></span><span style="display:flex;"><span>                    shutdown(clientfd, SHUT_RDWR);
+</span></span><span style="display:flex;"><span>                    close(clientfd);
+</span></span><span style="display:flex;"><span>                    head.client_work <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                str.clear();
+</span></span><span style="display:flex;"><span>                cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;完成请求&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            th.join();
+</span></span><span style="display:flex;"><span>            exit(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="httpcpp">http.cpp</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * File              : src/http.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Author            : denstiny &lt;2254228017@qq.com&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Date              : 04.04.2021
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Last Modified Date: 04.04.2021
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Last Modified By  : denstiny &lt;2254228017@qq.com&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;../include/http.hpp&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdlib&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;fstream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;strings.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	创建套接字 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	Create a socket
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> ServerHander<span style="color:#f92672">::</span>InitServer(<span style="color:#66d9ef">void</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> fd <span style="color:#f92672">=</span> socket(AF_INET, SOCK_STREAM, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 使 fd可以重用 这是错误的,即使这是错误的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">int</span> option <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>	setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, <span style="color:#f92672">&amp;</span>option, <span style="color:#66d9ef">sizeof</span>(option));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">sockaddr_in</span> serveraddr;
+</span></span><span style="display:flex;"><span>	bzero(<span style="color:#f92672">&amp;</span>serveraddr, <span style="color:#66d9ef">sizeof</span>(serveraddr));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	serveraddr.sin_family <span style="color:#f92672">=</span> AF_INET;
+</span></span><span style="display:flex;"><span>	serveraddr.sin_port <span style="color:#f92672">=</span> htons(PORT);
+</span></span><span style="display:flex;"><span>	serveraddr.sin_addr.s_addr <span style="color:#f92672">=</span> INADDR_ANY;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(bind(fd, (<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">sockaddr</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>serveraddr,<span style="color:#66d9ef">sizeof</span>(serveraddr) ) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>		perror(<span style="color:#e6db74">&#34;绑定端口错误！&#34;</span>);
+</span></span><span style="display:flex;"><span>		exit(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	listen(fd, <span style="color:#ae81ff">100</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> fd;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 处理客户端数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> ServerHander<span style="color:#f92672">::</span>deal_cliet_requests(<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>clientfd,string <span style="color:#f92672">&amp;</span>str) {
+</span></span><span style="display:flex;"><span>	fstream <span style="color:#a6e22e">obs</span>(file_name,ios<span style="color:#f92672">::</span>in);
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//cout &lt;&lt; &#34;str ==&gt; &#34; &lt;&lt; str  &lt;&lt; &#34; &lt;===&#34;&lt;&lt; endl;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>obs.is_open()) {
+</span></span><span style="display:flex;"><span>		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;对数据的访问不存在：&#34;</span> <span style="color:#f92672">&lt;&lt;</span> file_name <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">while</span>(<span style="color:#f92672">!</span>obs.eof()) {
+</span></span><span style="display:flex;"><span>		str <span style="color:#f92672">+=</span> obs.get();
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	str.pop_back();
+</span></span><span style="display:flex;"><span>	obs.close();
+</span></span><span style="display:flex;"><span>	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;返回数据 ==&gt; </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74"> &#34;</span> <span style="color:#f92672">&lt;&lt;</span> file_name <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>	write(clientfd, str.c_str(), str.length());
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>client_work <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> ServerHander<span style="color:#f92672">::</span>requests_cliet_state(<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>clientfd,string <span style="color:#f92672">&amp;</span>str) {
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(clientfd <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>		shutdown(clientfd,SHUT_WR);	
+</span></span><span style="display:flex;"><span>		close(clientfd);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">char</span> mime[<span style="color:#ae81ff">100</span>],buffer[BUFSIZ] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>},file_name[<span style="color:#ae81ff">100</span>];
+</span></span><span style="display:flex;"><span>	string Fname <span style="color:#f92672">=</span> FILEROOT;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> nreed <span style="color:#f92672">=</span> read(clientfd,buffer,<span style="color:#66d9ef">sizeof</span>(buffer));
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		读取客户端发送的数据,并返回成功的状态码 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		如果客户访问的数据不存在则返回访问404
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		Read the client sends data is failed
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		If the client access 404 data does not exist
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	*/</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//cout  &lt;&lt; &#34;客户端发送数据 ==&gt;\n&#34; &lt;&lt; file_name &lt;&lt; endl;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	sscanf(buffer,<span style="color:#e6db74">&#34;GET /%s&#34;</span>,file_name);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(strstr(file_name,<span style="color:#e6db74">&#34;.html&#34;</span>)) {
+</span></span><span style="display:flex;"><span>		strcat(mime,<span style="color:#e6db74">&#34;text/html&#34;</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(strstr(file_name,<span style="color:#e6db74">&#34;.png&#34;</span>)) {
+</span></span><span style="display:flex;"><span>		strcat(mime, <span style="color:#e6db74">&#34;image/png&#34;</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(strstr(file_name,<span style="color:#e6db74">&#34;.jpg&#34;</span>)) {
+</span></span><span style="display:flex;"><span>		strcat(mime,<span style="color:#e6db74">&#34;image/jpg&#34;</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">char</span> temp_str[BUFSIZ] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	Fname <span style="color:#f92672">+=</span> file_name;
+</span></span><span style="display:flex;"><span>	fstream <span style="color:#a6e22e">obs</span>(Fname,ios<span style="color:#f92672">::</span>in);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>obs.is_open()) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		sprintf(temp_str,Error,mime);
+</span></span><span style="display:flex;"><span>		str <span style="color:#f92672">=</span> temp_str;
+</span></span><span style="display:flex;"><span>		write(clientfd,str.c_str(),<span style="color:#66d9ef">sizeof</span>(str));
+</span></span><span style="display:flex;"><span>		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;数据访问不存在: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> file_name <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>		obs.close();
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>	}<span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		sprintf(temp_str,Allow,mime,(<span style="color:#66d9ef">int</span>)getpid());
+</span></span><span style="display:flex;"><span>		str <span style="color:#f92672">=</span> temp_str;
+</span></span><span style="display:flex;"><span>		file_state <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>file_name <span style="color:#f92672">=</span> Fname;
+</span></span><span style="display:flex;"><span>		obs.close();
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	延迟包设置 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	当客户端发送请求将重置 倒计时
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Stop_work</span>(ServerHander <span style="color:#f92672">&amp;</span>head,<span style="color:#66d9ef">int</span> clientfd) {
+</span></span><span style="display:flex;"><span>	vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> client_list;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(clientfd <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;客户端无效&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>		exit(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	head.client_work <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>		sleep(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span>(head.client_work <span style="color:#f92672">==</span> true)
+</span></span><span style="display:flex;"><span>			 i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;客户端加载超时,断开连接&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>	shutdown(clientfd,SHUT_WR);
+</span></span><span style="display:flex;"><span>	exit(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	构造函数 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ServerHander<span style="color:#f92672">::</span>ServerHander() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>client_work <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>file_state <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	 析构函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>ServerHander<span style="color:#f92672">::~</span>ServerHander() {
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> ServerHander<span style="color:#f92672">::</span>Insert_work(<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>clientfd,<span style="color:#66d9ef">int</span> pid) {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		查找数据客户列表,如果没有找到,则判定为新用户,如果找到,则,判定用户重复申请不做回应
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	*/</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>UserList<span style="color:#f92672">::~</span>UserList() {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   clear user list
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>	
+</span></span><span style="display:flex;"><span>	ofstream <span style="color:#a6e22e">obs</span>(<span style="color:#e6db74">&#34;src/lib/UserList&#34;</span>, ios<span style="color:#f92672">::</span>out <span style="color:#f92672">|</span> ios<span style="color:#f92672">::</span>trunc);
+</span></span><span style="display:flex;"><span>	obs.close();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>UserList<span style="color:#f92672">::</span>UserList() {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	 create user list file
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>	
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	ofstream <span style="color:#a6e22e">obs</span>(<span style="color:#e6db74">&#34;src/lib/UserList&#34;</span>, ios<span style="color:#f92672">::</span>out <span style="color:#f92672">|</span> ios<span style="color:#f92672">::</span>trunc);
+</span></span><span style="display:flex;"><span>	obs.close();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	Add user to list 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> UserList<span style="color:#f92672">::</span>AddUser(string username) {
+</span></span><span style="display:flex;"><span>	ofstream <span style="color:#a6e22e">obs</span>(<span style="color:#e6db74">&#34;src/lib/UserList&#34;</span>, ios<span style="color:#f92672">::</span>app);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>obs.is_open()) 
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>	username <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>	obs.write(username.c_str(), username.length());
+</span></span><span style="display:flex;"><span>	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;添加用户: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> username ;
+</span></span><span style="display:flex;"><span>	obs.close();
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	Delete user for user list 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> UserList<span style="color:#f92672">::</span>DelectUser(string username) {
+</span></span><span style="display:flex;"><span>	string str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,tempstr;
+</span></span><span style="display:flex;"><span>	ifstream <span style="color:#a6e22e">obs</span>(<span style="color:#e6db74">&#34;src/lib/UserList&#34;</span>, ios<span style="color:#f92672">::</span>in);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>obs.is_open()) {
+</span></span><span style="display:flex;"><span>		cout <span style="color:#f92672">&lt;&lt;</span> __FUNCTION__ <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; open user list error&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>obs.eof()) {
+</span></span><span style="display:flex;"><span>		getline(obs,tempstr);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span>(str.find(username) <span style="color:#f92672">!=</span> str.npos)
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>		str <span style="color:#f92672">+=</span> tempstr<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	obs.close();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		清空数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	*/</span>
+</span></span><span style="display:flex;"><span>	ofstream <span style="color:#a6e22e">ob</span>(<span style="color:#e6db74">&#34;src/lib/UserList&#34;</span>, ios<span style="color:#f92672">::</span>out <span style="color:#f92672">|</span> ios<span style="color:#f92672">::</span>trunc);
+</span></span><span style="display:flex;"><span>	ob.close();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		重新写入 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	*/</span>
+</span></span><span style="display:flex;"><span>	fstream <span style="color:#a6e22e">file</span>(<span style="color:#e6db74">&#34;str/lib/UserList&#34;</span>,ios<span style="color:#f92672">::</span>out);
+</span></span><span style="display:flex;"><span>	username <span style="color:#f92672">=</span> str;
+</span></span><span style="display:flex;"><span>	file.write(str.c_str(), str.length());
+</span></span><span style="display:flex;"><span>	file.close();
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	Search user for user list
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> UserList<span style="color:#f92672">::</span>SearchUser(string username) {
+</span></span><span style="display:flex;"><span>	fstream <span style="color:#a6e22e">obs</span>(<span style="color:#e6db74">&#34;/mnt/home/code/socket/http/str/lib/UserList&#34;</span>, ios<span style="color:#f92672">::</span>in);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>obs.is_open()) {
+</span></span><span style="display:flex;"><span>		cout <span style="color:#f92672">&lt;&lt;</span> __FUNCTION__ <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; open user list error&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>		obs.close();
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	string str;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>obs.eof()) {
+</span></span><span style="display:flex;"><span>		getline(obs, str);
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">			找到返回 true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		*/</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span>(str.find(username) <span style="color:#f92672">!=</span> str.npos) {
+</span></span><span style="display:flex;"><span>			obs.close();
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Users ==&gt; &#34;</span> <span style="color:#f92672">&lt;&lt;</span> str <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>		str.clear();
+</span></span><span style="display:flex;"><span>	} 
+</span></span><span style="display:flex;"><span>	obs.close();
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="include">include</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#pragma HTTP_H
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdlib&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;arpa/inet.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/socket.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctime&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;error.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;netinet/in.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;fstream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define PORT 9111
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define FILEROOT &#34;src/lib/&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define Allow &#34;HTTP/1.1 200 OK\r\nConnection: Keep-Alive\r\nContent-Type: %s\r\nSet-Cookie: PID=%d\r\n\r\n&#34; 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define Error &#34;HTTP/1.1 404 OK\r\nContent-Type: %s\r\n\r\n&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ServerHander</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserList</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>		UserList();
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">~</span>UserList();
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">			Add user to list 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		*/</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">bool</span> AddUser(string username);
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">			Search user for user list 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		*/</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">SearchUser</span>(string username);
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">			delete user for user list
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		*/</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">DelectUser</span>(string username);
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ServerHander</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">			客户端访问的数据 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		*/</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">bool</span> client_work;
+</span></span><span style="display:flex;"><span>		string file_name;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">bool</span> file_state;
+</span></span><span style="display:flex;"><span>		UserList user;
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">			创建套接字 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		*/</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">int</span> InitServer(<span style="color:#66d9ef">void</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">			返回状态码 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		*/</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">requests_cliet_state</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>clientfd,string <span style="color:#f92672">&amp;</span>str);
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">			返回客户端访问的数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		*/</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">deal_cliet_requests</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>clientfd,string <span style="color:#f92672">&amp;</span>str);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">			bool clinet list 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		*/</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">Insert_work</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>clientfd,<span style="color:#66d9ef">int</span> pid);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">			延迟包函数,如果超出时间没有发送请求,则关闭连接 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		*/</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">friend</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Stop_work</span>(ServerHander <span style="color:#f92672">&amp;</span>head,<span style="color:#66d9ef">int</span> clientfd);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>		ServerHander();
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">~</span>ServerHander();
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Stop_work</span>(ServerHander <span style="color:#f92672">&amp;</span>head,<span style="color:#66d9ef">int</span> clientfd);
+</span></span></code></pre></div><h2 id="编译">编译</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span><span style="color:#a6e22e">cc</span><span style="color:#f92672">:</span>	
+</span></span><span style="display:flex;"><span>	g++ main/main.cpp src/http.cpp -lpthread -o  http
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">run</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>	./http
+</span></span></code></pre></div><h2 id="lib文件">lib文件</h2>
+<h3 id="先写一个inddexhtml">先写一个<code>inddex.html</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">h1</span>&gt;hello wrold&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Content-Type&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html; charset=utf-8&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">body</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">background</span>: url(<span style="color:#e6db74">&#34;1.jpg&#34;</span>) <span style="color:#66d9ef">no-repeat</span>;
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">background-size</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span> <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	&lt;/<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span> <span style="color:#a6e22e">background</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2020.jpg&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">p</span>&gt;访问成功&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;linux.png&#34;</span>&gt;&lt;/<span style="color:#f92672">img</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2020.jpg&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;200px&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;200px&#34;</span>&gt;&lt;/<span style="color:#f92672">img</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0828120069c93c796ed5333b2ccd6179.png&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;200px&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;200px&#34;</span>&gt;&lt;/<span style="color:#f92672">img</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;20200715034825619.jpg&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;200px&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;200px&#34;</span>&gt;&lt;/<span style="color:#f92672">img</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><h3 id="资源文件">资源文件</h3>
+<h2 id="httpswwwhualigscnimage621cb8b4f11d6jpg"><img src="https://www.hualigs.cn/image/621cb8b4f11d6.jpg" alt=""></h2>
+<h2 id="效果">效果</h2>
+<p><img src="https://www.hualigs.cn/image/621cba131bf04.jpg" alt=""></p>
+
+
+
+
+      </main>
+  </div>
+  </body>
+</html>
