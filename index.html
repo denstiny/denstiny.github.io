@@ -122,15 +122,6 @@ if (!doNotTrack) {
   
 
   <h2 class="post-list summary">
-    <a href="/c-%E5%AE%9E%E7%8E%B0http%E6%9C%8D%E5%8A%A1%E5%99%A8/">
-      C&#43;&#43;实现http服务器
-    </a>
-  </h2>
-  
-    c++ 实现http服务器 cpp 代码实现 main.cpp /** * File : main/main.cpp * Author : denstiny &lt;2254228017@qq.com&gt; * Date : 04.04.2021 * Last Modified Date: 04.04.2021 * Last Modified By : denstiny &lt;2254228017@qq.com&gt; */ #include &#34;../include/http.hpp&#34;#include &lt;csignal&gt;#include &lt;cstdio&gt;#include &lt;cstdlib&gt;#include &lt;functional&gt;#include &lt;iterator&gt;#include &lt;strings.h&gt;#include &lt;sys/socket.h&gt;#include &lt;sys/wait.h&gt;#include &lt;unistd.h&gt;#include &lt;wait.h&gt;  int main( int argc, char *argv[] ) {  ServerHander head;  int serverfd = head.InitServer(), clientfd = -1;  struct sockaddr_in clinetaddr;  bzero(&amp;clinetaddr, sizeof(clinetaddr));  socklen_t clientlen = sizeof(clinetaddr);  cout &lt;&lt; &#34;等待连接&#34; &lt;&lt; endl;  pid_t pid = fork();     while (1) {  /* 开始执行任务 */   /* 利用多进程内存不会共享原理,调用多线程来做心跳包,当客户端接收到请求,则创建一个新的进程,来处理 客户端数据,当客户端数据合法,则作出回应,并新建一个线程,在有效时间内,客户端没有继续发送请求则 断开连接 */   /* 父进程 */  if(pid &gt; 0) { // 主进程负责接受请求  while(( clientfd = accept(serverfd, (struct sockaddr *)&amp;clinetaddr, &amp;clientlen) ) !
-  
-
-  <h2 class="post-list summary">
     <a href="/python%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0%E5%9B%BE%E5%BA%8A/">
       Python上传图片到图床
     </a>
@@ -140,6 +131,17 @@ if (!doNotTrack) {
 作为一个vim 死忠粉，在使用vim 写makrdown文档的时候，总是为上传图片而犯难，总是要切换到浏览器捣鼓一阵子，比较影响写作体验，所以写下这个脚本
   python代码  postImage.py
   &#34;&#34;&#34; @author : aero (2254228017@qq.com) @file : imagePost @created : 星期六 2月 26, 2022 20:08:57 CST @github : https://github.com/denstiny @blog : https://denstiny.github.io &#34;&#34;&#34;  import os import json import sys import requests import subprocess import datetime   root = {&#39;遇见图床&#39;: {&#39;url&#39;:&#39;https://www.hualigs.cn/api/upload&#39;,  &#39;token&#39;:&#39;xxx&#39;},  &#39;牛图网&#39;:  {&#39;url&#39;:&#39;https://www.
+  
+
+  <h2 class="post-list summary">
+    <a href="/%E6%97%A0%E8%81%8A%E7%9A%84%E4%B8%80%E5%A4%A9/">
+      无聊的一天
+    </a>
+  </h2>
+  
+     老师又在讲这些本来一条命令就能安装的东西,非要下载然后解压缩，构建，复制 
+  昨天还下雪了了，今天地上全是水，真的是 哎呀这可能是南昌今年最后一场雪了 
+ 
   
 
 
