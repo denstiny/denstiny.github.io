@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.93.1" />
+  <meta name="generator" content="Hugo 0.93.2" />
   <link rel="canonical" href="https://denstiny.github.io/">
 
   
@@ -90,22 +90,21 @@ if (!doNotTrack) {
 
 
   <h2 class="post-list summary">
-    <a href="/%E6%88%92%E7%83%9F%E7%AC%AC%E4%B8%80%E5%A4%A9/">
-      戒烟第一天
+    <a href="/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+      (leetcode)最长回文串
     </a>
   </h2>
   
-    在昨天，我和一个以前的同学在一开打游戏，突然听到他说，我们的高中同学，因为抽烟得了肺癌了，我当时挺震惊的，因为他和我是同一时间开始抽烟的 现在他躺进去了，一下子危机感就上来了，戒烟戒烟!!!!
-  
-
-  <h2 class="post-list summary">
-    <a href="/%E6%88%92%E7%83%9F%E7%AC%AC%E4%BA%8C%E5%A4%A9/">
-      戒烟第二天
-    </a>
-  </h2>
-  
-    今天是戒烟的第二天,现在是断烟的第27个小时，
-我现在的感觉是每个呼吸都在告诉我，你该点一根了
+    (leetcode) 最长回文串  题目描述  解题思路   代码实现  测试效果      (leetcode) 最长回文串 题目描述  给你一个字符串 s，找到 s 中最长的回文子串.
+ 示例 1：
+输入：s = &ldquo;babad&rdquo;
+输出：&ldquo;bab&rdquo;
+解释：&ldquo;aba&rdquo; 同样是符合题意的答案。
+示例 2：
+输入：s = &ldquo;cbbd&rdquo; 输出：&ldquo;bb&rdquo;
+  解题思路 使用动态规划
+ 动态规划,是一种使用空间换时间的算法
+  事例：acvcac     0 1 2 3 4 5      0 ✓        1 ✗ ✓       2 ✗ ✗ ✓      3 ✗ ✓ ✗ ✓     4 ✓ ✗ ✗ ✗ ✓    5 ✗ ✗ ✗ ✓ ✗ ✓     [5,2]
   
 
   <h2 class="post-list summary">
@@ -142,6 +141,18 @@ if (!doNotTrack) {
      老师又在讲这些本来一条命令就能安装的东西,非要下载然后解压缩，构建，复制 
   昨天还下雪了了，今天地上全是水，真的是 哎呀这可能是南昌今年最后一场雪了 
  
+  
+
+  <h2 class="post-list summary">
+    <a href="/linux%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E9%94%AE%E7%9B%98%E9%BC%A0%E6%A0%87/">
+      Linux自动禁用键盘鼠标
+    </a>
+  </h2>
+  
+    linux自动禁用鼠标键盘 我当前使用的是awesome wm桌面环境，由于桌子比较小，所以外接的键盘是直接放在笔记本上面，另外还接了蓝牙鼠标，为了避免误触需要把默认的键盘鼠标禁用掉，但是每次开机都要自己手动禁用感觉很麻烦想写个脚本
+xinput 命令查看当前笔记本连接的设备 使用方法
+xinput Results:
+⎡ Virtual core pointer id=2	[master pointer (3)] ⎜ ↳ Virtual core XTEST pointer id=4	[slave pointer (2)] ⎜ ↳ SYNA1202:00 06CB:CD65 Mouse id=20	[slave pointer (2)] ⎜ ↳ 2.4G Mouse Consumer Control id=15	[slave pointer (2)] ⎜ ↳ 2.4G Mouse id=17	[slave pointer (2)] ⎜ ↳ Compx 2.4G Wireless Receiver Mouse id=13	[slave pointer (2)] ⎜ ↳ Compx 2.4G Wireless Receiver Keyboard id=14	[slave pointer (2)] ⎜ ↳ SYNA1202:00 06CB:CD65 Touchpad id=21	[slave pointer (2)] ⎣ Virtual core keyboard id=3	[master keyboard (2)] ↳ Virtual core XTEST keyboard id=5	[slave keyboard (3)] ↳ Power Button id=6	[slave keyboard (3)] ↳ Video Bus id=7	[slave keyboard (3)] ↳ Video Bus id=8	[slave keyboard (3)] ↳ Power Button id=9	[slave keyboard (3)] ↳ Lid Switch id=10	[slave keyboard (3)] ↳ Sleep Button id=11	[slave keyboard (3)] ↳ Chicony USB2.
   
 
 

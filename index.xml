@@ -6,24 +6,23 @@
     <description>Recent content on Sooner or later, personal blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 08 Mar 2022 15:40:12 +0800</lastBuildDate><atom:link href="https://denstiny.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Mar 2022 03:04:12 +0800</lastBuildDate><atom:link href="https://denstiny.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>戒烟第一天</title>
-      <link>https://denstiny.github.io/%E6%88%92%E7%83%9F%E7%AC%AC%E4%B8%80%E5%A4%A9/</link>
-      <pubDate>Tue, 08 Mar 2022 15:40:12 +0800</pubDate>
+      <title>(leetcode)最长回文串</title>
+      <link>https://denstiny.github.io/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</link>
+      <pubDate>Mon, 14 Mar 2022 03:04:12 +0800</pubDate>
       
-      <guid>https://denstiny.github.io/%E6%88%92%E7%83%9F%E7%AC%AC%E4%B8%80%E5%A4%A9/</guid>
-      <description>在昨天，我和一个以前的同学在一开打游戏，突然听到他说，我们的高中同学，因为抽烟得了肺癌了，我当时挺震惊的，因为他和我是同一时间开始抽烟的 现在他躺进去了，一下子危机感就上来了，戒烟戒烟!!!!</description>
-    </item>
-    
-    <item>
-      <title>戒烟第二天</title>
-      <link>https://denstiny.github.io/%E6%88%92%E7%83%9F%E7%AC%AC%E4%BA%8C%E5%A4%A9/</link>
-      <pubDate>Tue, 08 Mar 2022 12:58:12 +0800</pubDate>
-      
-      <guid>https://denstiny.github.io/%E6%88%92%E7%83%9F%E7%AC%AC%E4%BA%8C%E5%A4%A9/</guid>
-      <description>今天是戒烟的第二天,现在是断烟的第27个小时，
-我现在的感觉是每个呼吸都在告诉我，你该点一根了</description>
+      <guid>https://denstiny.github.io/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</guid>
+      <description>(leetcode) 最长回文串  题目描述  解题思路   代码实现  测试效果      (leetcode) 最长回文串 题目描述  给你一个字符串 s，找到 s 中最长的回文子串.
+ 示例 1：
+输入：s = &amp;ldquo;babad&amp;rdquo;
+输出：&amp;ldquo;bab&amp;rdquo;
+解释：&amp;ldquo;aba&amp;rdquo; 同样是符合题意的答案。
+示例 2：
+输入：s = &amp;ldquo;cbbd&amp;rdquo; 输出：&amp;ldquo;bb&amp;rdquo;
+  解题思路 使用动态规划
+ 动态规划,是一种使用空间换时间的算法
+  事例：acvcac     0 1 2 3 4 5      0 ✓        1 ✗ ✓       2 ✗ ✗ ✓      3 ✗ ✓ ✗ ✓     4 ✓ ✗ ✗ ✗ ✓    5 ✗ ✗ ✗ ✓ ✗ ✓     [5,2]</description>
     </item>
     
     <item>
