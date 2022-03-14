@@ -100,7 +100,8 @@ if (!doNotTrack) {
 输入：s = &ldquo;cbbd&rdquo; 输出：&ldquo;bb&rdquo;
   解题思路 使用动态规划
  动态规划,是一种使用空间换时间的算法
-  事例：acvcac     0 1 2 3 4 5      0 ✓        1 ✗ ✓       2 ✗ ✗ ✓      3 ✗ ✓ ✗ ✓     4 ✓ ✗ ✗ ✗ ✓    5 ✗ ✗ ✗ ✓ ✗ ✓     [5,2]
+ 在使用暴力破解的情况下，我们需要对每个位置的字符， 进行暴力穷举
+ 事例：string: acvcac     0 1 2 3 4 5     a c v c a c     暴力破解:
   
 
   <h2 class="post-list summary">
